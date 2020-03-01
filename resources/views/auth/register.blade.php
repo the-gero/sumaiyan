@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'register', 'title' => __('Material Dashboard')])
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'register', 'title' => __('Register')])
 
 @section('content')
 <div class="container" style="height: auto;">
@@ -51,6 +51,47 @@
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
                   <strong>{{ $errors->first('email') }}</strong>
+                </div>
+              @endif
+            </div>
+            <div class="bmd-form-group{{ $errors->has('department') ? ' has-danger' : '' }} mt-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">account_balance</i>
+                  </span>
+                </div>
+                  <input class="btn dropdown-toggle" type="button" name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="dropdown-menu" aria-labelledby="department">
+                    <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
+                    <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                  </div>
+                
+              </div>
+              @if ($errors->has('department'))
+                <div id="department-error" class="error text-danger pl-3" for="department" style="display: block;">
+                <strong>{{ $errors->first('department') }}</strong>
+                </div>
+              @endif
+            </div>
+            <div class="bmd-form-group{{ $errors->has('batch') ? ' has-danger' : '' }} mt-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">class</i>
+                  </span>
+                </div>
+                  <input class="btn dropdown-toggle" type="button" name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="dropdown-menu" aria-labelledby="batch">
+                    <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
+                    <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
+                    <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                  </div>
+              </div>
+              
+              @if ($errors->has('batch'))
+                <div id="batch-error" class="error text-danger pl-3" for="batch" style="display: block;">
+                <strong>{{ $errors->first('batch') }}</strong>
                 </div>
               @endif
             </div>
