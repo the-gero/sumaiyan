@@ -32,12 +32,14 @@
                 <span class="sidebar-normal">{{ __('User profile') }} </span>
               </a>
             </li>
+            @if(Auth::user()->user_type == 'faculty')
             <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('user.index') }}">
                 <span class="sidebar-mini"> UM </span>
                 <span class="sidebar-normal"> {{ __('User Management') }} </span>
               </a>
             </li>
+            @endif
           </ul>
         </div>
       </li>

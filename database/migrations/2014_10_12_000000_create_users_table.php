@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('user_type')->default('student');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('department');
+            $table->string('batch')->default('N/A')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
