@@ -61,7 +61,7 @@
                     <i class="material-icons">account_balance</i>
                   </span>
                 </div>
-                  <input class="btn dropdown-toggle" type="button" name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <input class="btn dropdown-toggle" type="text" name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                   <div class="dropdown-menu" aria-labelledby="department">
                     <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
                     <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
@@ -81,7 +81,7 @@
                     <i class="material-icons">class</i>
                   </span>
                 </div>
-                  <input class="btn dropdown-toggle" type="button" name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <input class="btn dropdown-toggle" type="text" name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
                   <div class="dropdown-menu" aria-labelledby="batch">
                     <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
                     <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
