@@ -29,8 +29,8 @@
               <div class="card-icon">
                 <i class="material-icons">store</i>
               </div>
-              <p class="card-category">Revenue</p>
-              <h3 class="card-title">$34,245</h3>
+              <p class="card-category">Homeworks</p>
+              <h3 class="card-title">... Left</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -45,8 +45,8 @@
               <div class="card-icon">
                 <i class="material-icons">info_outline</i>
               </div>
-              <p class="card-category">Fixed Issues</p>
-              <h3 class="card-title">75</h3>
+              <p class="card-category">Issues</p>
+              <h3 class="card-title">7</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -61,7 +61,7 @@
               <div class="card-icon">
                 <i class="fa fa-twitter"></i>
               </div>
-              <p class="card-category">Followers</p>
+              <p class="card-category">Social</p>
               <h3 class="card-title">+245</h3>
             </div>
             <div class="card-footer">
@@ -79,9 +79,9 @@
               <div class="ct-chart" id="dailySalesChart"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Daily Sales</h4>
+              <h4 class="card-title">Daily Progress</h4>
               <p class="card-category">
-                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in todays outcome.</p>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -96,12 +96,12 @@
               <div class="ct-chart" id="websiteViewsChart"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Email Subscriptions</h4>
-              <p class="card-category">Last Campaign Performance</p>
+              <h4 class="card-title">Workshops</h4>
+              <p class="card-category">Last Workshops Performance</p>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days ago
+                <i class="material-icons">access_time</i> updated 2 days ago
               </div>
             </div>
           </div>
@@ -113,11 +113,11 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">Completed Tasks</h4>
-              <p class="card-category">Last Campaign Performance</p>
+              <p class="card-category">Last  Performance</p>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days ago
+                <i class="material-icons">access_time</i>  2 days ago
               </div>
             </div>
           </div>
@@ -372,7 +372,7 @@
         <div class="col-lg-6 col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">
-              <h4 class="card-title">Employees Stats</h4>
+              <h4 class="card-title">Other Stats</h4>
               <p class="card-category">New employees on 15th September, 2016</p>
             </div>
             <div class="card-body table-responsive">
