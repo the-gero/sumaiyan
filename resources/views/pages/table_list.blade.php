@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List')])
+@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Time Table')])
 
 @section('content')
 <div class="content">
@@ -7,21 +7,21 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Simple Table</h4>
-            <p class="card-category"> Here is a subtitle for this table</p>
+            <h4 class="card-title ">Time Table</h4>
+          <p class="card-category"> Here is your time table {{Auth::user()->name}}</p>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
                   <th>
-                    ID
+                    Day
                   </th>
                   <th>
-                    Name
+                    8:30 - 10:30
                   </th>
                   <th>
-                    Country
+                    11:30
                   </th>
                   <th>
                     City
