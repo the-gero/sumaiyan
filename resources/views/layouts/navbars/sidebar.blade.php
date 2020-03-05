@@ -52,7 +52,7 @@
       <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('typography') }}">
           <i class="material-icons">library_books</i>
-            <p>{{ __('Typography') }}</p>
+            <p>{{ __('Reults') }}</p>
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
