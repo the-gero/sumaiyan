@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
     <meta charset="utf-8" />
-    <title>@if($titlePage) {{$titlePage}} @else {{$title}} @endif</title>
+    <title>@if($titlePage == true) {{$titlePage}} @else {{$title}} @endif</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
