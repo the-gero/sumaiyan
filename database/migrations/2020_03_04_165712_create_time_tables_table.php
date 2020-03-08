@@ -20,6 +20,7 @@ class CreateTimeTablesTable extends Migration
             $table->string('day');
             $table->string('time');
             $table->string('subject');
+            $table->string('type');
             $table->string('faculty');
             $table->timestamps();
         });

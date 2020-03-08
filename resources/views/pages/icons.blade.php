@@ -7,8 +7,8 @@
       <div class="card card-plain">
         <div class="card-header card-header-primary">
           <h4 class="card-title">Co-Curricular</h4>
-          <p class="card-category">At somaiya Vidyavihar
-            <a target="_blank" href="https://kjssc.somaiya.edu/kjssc/Student/cultural">Google</a>
+          <p class="card-category">At 
+            <a target="_blank" href="https://kjssc.somaiya.edu/kjssc/Student/cultural">Somaiya Vidyavihar</a>
           </p>
         </div>
         <div class="row">
@@ -20,8 +20,8 @@
                 </iframe>
               </div>
               <div class="col-md-12 d-none d-sm-block d-md-block d-lg-none d-block d-sm-none text-center ml-auto mr-auto">
-                <h5>The icons are visible on Desktop mode inside an iframe. Since the iframe is not working on Mobile and Tablets please visit the icons on their original page on Google. Check the
-                  <a href="https://kjssc.somaiya.edu/kjssc/Student/cultural" target="_blank">Material Icons</a>
+                <h5> Check the
+                  <a href="https://kjssc.somaiya.edu/kjssc/Student/cultural" target="_blank">Co Curricular section</a>
                 </h5>
               </div>
             </div>

@@ -44,7 +44,7 @@
         </div>
       </li>
       <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('table') }}">
+        <a class="nav-link" href="{{ route('time-table.index') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Time Table') }}</p>
         </a>

@@ -17,11 +17,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-
+Route::resource('/time-table','TimeTableController');
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('table-list', function () {
+	/* Route::get('table-list', function () {
 		return view('pages.table_list');
-	})->name('table');
+	})->name('table'); */
 
 	Route::get('typography', function () {
 		return view('pages.typography');
