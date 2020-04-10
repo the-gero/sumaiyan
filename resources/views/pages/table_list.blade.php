@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="content">
+  @if(Auth::user()->user_type == "student")
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -18,121 +19,37 @@
                     Day
                   </th>
                   <th>
-                    time
+                    Time
                   </th>
                   <th>
-                    11:30
+                    Subject
                   </th>
                   <th>
-                    City
+                    Type
                   </th>
                   <th>
-                    Salary
+                    Faculty
                   </th>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      1
+                      {{$timetable->day}}
                     </td>
                     <td>
-                      Dakota Rice
+                      {{$timetable->time}}
                     </td>
                     <td>
-                      Niger
+                      {{$timetable->subject}}
                     </td>
                     <td>
-                      Oud-Turnhout
+                      {{$timetable->type}}
                     </td>
                     <td class="text-primary">
-                      $36,738
+                      {{$timetable->faculty}}
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      2
-                    </td>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                    <td>
-                      Sinaai-Waas
-                    </td>
-                    <td class="text-primary">
-                      $23,789
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      3
-                    </td>
-                    <td>
-                      Sage Rodriguez
-                    </td>
-                    <td>
-                      Netherlands
-                    </td>
-                    <td>
-                      Baileux
-                    </td>
-                    <td class="text-primary">
-                      $56,142
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      4
-                    </td>
-                    <td>
-                      Philip Chaney
-                    </td>
-                    <td>
-                      Korea, South
-                    </td>
-                    <td>
-                      Overland Park
-                    </td>
-                    <td class="text-primary">
-                      $38,735
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      5
-                    </td>
-                    <td>
-                      Doris Greene
-                    </td>
-                    <td>
-                      Malawi
-                    </td>
-                    <td>
-                      Feldkirchen in Kärnten
-                    </td>
-                    <td class="text-primary">
-                      $63,542
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      6
-                    </td>
-                    <td>
-                      Mason Porter
-                    </td>
-                    <td>
-                      Chile
-                    </td>
-                    <td>
-                      Gloucester
-                    </td>
-                    <td class="text-primary">
-                      $78,615
-                    </td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
@@ -141,6 +58,7 @@
       </div>
     </div>
   </div>
+  @endif
   @if(Auth::user()->user_type == "faculty")
   <div class="container-fluid">
     <div class="row">
@@ -167,6 +85,9 @@
                     Batch
                   </th>
                   <th>
+                    Type
+                  </th>
+                  <th>
                     Subject
                   </th>
                   <th>
@@ -177,16 +98,28 @@
                   </th>
                 </thead>
                 <tbody>
-                  <form action="{{ route('time-table.store') }}" method="post"></form>
-                  <td>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
-                  </td>
+                  <form action="{{ route('time-table.store') }}" method="post" enctype="multipart/form-data" class="form">
+                    @csrf
+                    <tr>
+                      <td><input type="text" name="day" placeholder="Day" ></td>
+                      <td><input type="time" name="time" id="time" ></td>
+                      <td><input class="btn dropdown-toggle" type="text" readonly name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                        <div class="dropdown-menu" aria-labelledby="department">
+                          <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
+                          <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                        </div></td>
+                      <td><input class="btn dropdown-toggle" type="text" readonly name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                        <div class="dropdown-menu" aria-labelledby="batch">
+                          <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
+                          <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
+                          <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                        </div></td>
+                      <td><input type="text" name='type' placeholder="Type" ></td>
+                      <td><input type="text" name='subject' placeholder="Subject" ></td>
+                      <td><input type="text" name='faculty' placeholder="Faculty" ></td>
+                      <td><input type="submit" value="Submit"> <button type="submit"><span class="input-group-text"><i class="material-icons">add</i></span></button> </td>
+                    </tr>
+                  </form>
                 </tbody>
               </table>
             </div>
