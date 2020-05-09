@@ -42,6 +42,47 @@
                     </div>
                   </div>
                 </div>
+                <div class="row bmd-form-group{{ $errors->has('department') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">account_balance</i>
+                      </span>
+                    </div>
+                      <input class="btn dropdown-toggle" type="text" name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                      <div class="dropdown-menu" aria-labelledby="department">
+                        <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
+                        <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                      </div>
+                    
+                  </div>
+                  @if ($errors->has('department'))
+                    <div id="department-error" class="error text-danger pl-3" for="department" style="display: block;">
+                    <strong>{{ $errors->first('department') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('batch') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">class</i>
+                      </span>
+                    </div>
+                      <input class="btn dropdown-toggle" type="text" name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                      <div class="dropdown-menu" aria-labelledby="batch">
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                      </div>
+                  </div>
+                  
+                  @if ($errors->has('batch'))
+                    <div id="batch-error" class="error text-danger pl-3" for="batch" style="display: block;">
+                    <strong>{{ $errors->first('batch') }}</strong>
+                    </div>
+                  @endif
+                </div>
                 <div class="row">
                   <label class="col-sm-2 col-form-label" for="input-password">{{ __(' Password') }}</label>
                   <div class="col-sm-7">
