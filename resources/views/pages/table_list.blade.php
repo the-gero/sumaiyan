@@ -3,6 +3,7 @@
 @section('content')
 <div class="content">
   @if(Auth::user()->user_type == "student")
+  
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -32,25 +33,27 @@
                   </th>
                 </thead>
                 <tbody>
+                  @foreach ($timetable as $item)
                   <tr>
                     <td>
-                      {{$timetable->day}}
+                      {{$item->day}}
                     </td>
                     <td>
-                      {{$timetable->time}}
+                      {{$item->time}}
                     </td>
                     <td>
-                      {{$timetable->subject}}
+                      {{$item->subject}}
                     </td>
                     <td>
-                      {{$timetable->type}}
+                      {{$item->type}}
                     </td>
                     <td class="text-primary">
-                      {{$timetable->faculty}}
+                      {{$item->faculty}}
                     </td>
                   </tr>
-                  
+                  @endforeach
                 </tbody>
+                
               </table>
             </div>
           </div>
@@ -58,6 +61,8 @@
       </div>
     </div>
   </div>
+  
+  
   @endif
   @if(Auth::user()->user_type == "faculty")
   <div class="container-fluid">
