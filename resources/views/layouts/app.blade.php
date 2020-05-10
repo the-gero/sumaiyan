@@ -145,6 +145,25 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
+        {{-- <script>
+  
+          $('#edit').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) 
+              var ttid = button.data('ttid') 
+              var ttday = button.data('ttday') 
+              var tttime = button.data('tttime') 
+              var ttdepartment = button.data('ttdepartment') 
+              var ttbatch = button.data('ttbatch') 
+              var tttype = button.data('tttype') 
+              var ttsubject = button.data('ttsubject') 
+              var ttfaculty = button.data('ttfaculty') 
+              var modal = $(this)
+              modal.find('.modal-body #tt_id').val(ttid);
+              modal.find('.modal-body #day').val(day);
+              modal.find('.modal-body #department').val(cat_id);
+        })
+          
+        </script> --}}
         @stack('js')
     </body>
 </html>

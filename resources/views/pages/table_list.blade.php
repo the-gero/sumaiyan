@@ -220,7 +220,7 @@
                             <td>{{$fulltt->type}}</td>
                             <td>{{$fulltt->subject}}</td>
                             <td>{{$fulltt->faculty}}</td>
-                            <td>Update, <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
+                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit" >Update</button> <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -273,7 +273,7 @@
                             <td>{{$fulltt->type}}</td>
                             <td>{{$fulltt->subject}}</td>
                             <td>{{$fulltt->faculty}}</td>
-                            <td>Update, <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
+                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -326,7 +326,7 @@
                             <td>{{$fulltt->type}}</td>
                             <td>{{$fulltt->subject}}</td>
                             <td>{{$fulltt->faculty}}</td>
-                            <td>Update, <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
+                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -379,7 +379,7 @@
                             <td>{{$fulltt->type}}</td>
                             <td>{{$fulltt->subject}}</td>
                             <td>{{$fulltt->faculty}}</td>
-                            <td>Update, <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
+                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -432,7 +432,7 @@
                             <td>{{$fulltt->type}}</td>
                             <td>{{$fulltt->subject}}</td>
                             <td>{{$fulltt->faculty}}</td>
-                            <td>Update, <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
+                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -485,7 +485,7 @@
                             <td>{{$fulltt->type}}</td>
                             <td>{{$fulltt->subject}}</td>
                             <td>{{$fulltt->faculty}}</td>
-                            <td>Update, <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
+                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> <form method="post" action="{{route('time-table.destroy', $fulltt->id)}}"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -504,7 +504,134 @@
       </div>
     </div>
   </div>
+  <div class="modal fade table" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Edit Time Table</h4>
+          <button type="button" class="close float-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          
+        </div>
+        <form action="#" method="post">
+            {{method_field('patch')}}
+            @csrf
+          <div class="modal-body">
+            <input type="hidden" name="id" id="tt_id" value="">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Day
+                </th>
+                <th>
+                  Time
+                </th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" name="day" id="day" class="btn dropdown-toggle" readonly value="{{ __('Day...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required >
+                      <div class="dropdown-menu" aria-labelledby="day" >
+                        <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Monday');" >Monday</a>
+                        <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Tuesday');" >Tuesday</a>
+                        <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Wednesday');" >Wednesday</a>
+                        <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Thursday');" >Thursday</a>
+                        <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Friday');" >Friday</a>
+                        <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Saturdayday');" >Saturday</a>
+                      </div>
+                    </td>
+                    <td><input type="time" class="btn dropdown-toggle"  name="time" id="time" style="/* border-radius:3px; border-width:14px; border-style:solid; */ color: white; background-color: purple;border-color: purple;" >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+                <thead class=" text-primary">
+                <th>
+                  Department
+                </th>
+                <th>
+                  Batch
+                </th>
+              </thead>
+              <tbody>
+                <tr>
+                    <td><input class="btn dropdown-toggle" type="text" readonly name="department" id="department" style="color: white; background-color: purple;border-color: purple;" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                      <div class="dropdown-menu" aria-labelledby="department">
+                        <a class="dropdown-item"  onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
+                        <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                      </div></td>
+                    <td><input class="btn dropdown-toggle" type="text" readonly name="batch" id="batch" value="{{ __('Batch...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                      <div class="dropdown-menu" aria-labelledby="batch">
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                      </div>
+                    </td>
+                </tr>  
+                  
+              </tbody>  
 
+                <tbody> 
+                  
+                  <thead class=" text-primary">
+                    <th>
+                      Type
+                    </th>
+                    <th>
+                      Subject
+                    </th>
+                    </thead>
+                    <tbody>
+                      <td><input type="text" name='type' id='type' class="btn dropdown-toggle" readonly value="{{ __('Type...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required >
+                        <div class="dropdown-menu" aria-labelledby="type" >
+                          <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Lecture');" >Lecture</a>
+                          <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Practical');" >Practical</a>
+                        </div>
+                      </td>
+                      <td><input type="text" name='subject' placeholder="Subject" class="btn dropdown-toggle" style="color: white; background-color: purple;border-color: purple;" ></td>
+                    </tbody>
+                    <thead class=" text-primary">
+                      <th>
+                        Faculty
+                      </th>
+                      <th>
+                        Action
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="text" name='faculty' placeholder="Faculty" class="btn dropdown-toggle" style=" color: white; background-color: purple;border-color: purple;"  ></td>
+                        <td>
+                        <button type="submit" class="btn btn-primary">Save Changes</button></td>
+                      </tr>
+                    </tbody>
+                
+                  
+            </table>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+  
+    $('#edit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        var ttid = button.data('ttid') 
+        var ttday = button.data('ttday') 
+        var tttime = button.data('tttime') 
+        var ttdepartment = button.data('ttdepartment') 
+        var ttbatch = button.data('ttbatch') 
+        var tttype = button.data('tttype') 
+        var ttsubject = button.data('ttsubject') 
+        var ttfaculty = button.data('ttfaculty') 
+        var modal = $(this)
+        modal.find('.modal-body #tt_id').val(ttid);
+        modal.find('.modal-body #day').val(day);
+        modal.find('.modal-body #department').val(ttdepartment);
+        modal.find('.modal-body #batch').val(ttbatch);
+  })
+    
+  </script>
   @endif
 
   
