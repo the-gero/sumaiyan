@@ -20,7 +20,8 @@ class TimeTableController extends Controller
                 $timetable = TimeTable::where('department',Auth::user()->department)->where('batch',Auth::user()->batch)->paginate(10); 
                 return view('pages.table_list')->with('timetable',$timetable);
             }
-            return view('pages.table_list');
+            $fulltt = TimeTable::orderBy('id','asc')->get();
+            return view('pages.table_list')->with('fulltts',$fulltt);
     }
 
     /**
@@ -50,7 +51,7 @@ class TimeTableController extends Controller
         $timetable->subject = $request->subject;
         $timetable->faculty = $request->faculty;
         $timetable->save();
-        return back();
+        return back()->withStatus(__('Time Table successfully added.'));
     }
 
     /**
@@ -95,6 +96,8 @@ class TimeTableController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tt = TimeTable::find($id);
+        $tt->delete();
+        return back()->withStatus(__('Time Table entry successfully deleted.'));
     }
 }
