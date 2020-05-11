@@ -18,14 +18,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('/time-table','TimeTableController');
+Route::resource('/results','ResultsController');
 Route::group(['middleware' => 'auth'], function () {
 	/* Route::get('table-list', function () {
 		return view('pages.table_list');
 	})->name('table'); */
 
-	Route::get('typography', function () {
+	/* Route::get('typography', function () {
 		return view('pages.typography');
-	})->name('typography');
+	})->name('typography'); */
 
 	Route::get('icons', function () {
 		return view('pages.icons');

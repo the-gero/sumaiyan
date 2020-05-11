@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'typography', 'titlePage' => __('Typography')])
+@extends('layouts.app', ['activePage' => 'results', 'titlePage' => __('Results')])
 
 @section('content')
 <div class="content">
@@ -11,7 +11,7 @@
       <div class="card-body">
         <div id="typography">
           <div class="card-title">
-            <h2>Result</h2>
+            <h2>Results</h2>
           </div>
 
           </div>

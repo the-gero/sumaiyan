@@ -49,8 +49,8 @@
             <p>{{ __('Time Table') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('typography') }}">
+      <li class="nav-item{{ $activePage == 'results' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('results.index') }}">
           <i class="material-icons">library_books</i>
             <p>{{ __('Results') }}</p>
         </a>
