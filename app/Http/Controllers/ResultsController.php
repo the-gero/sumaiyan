@@ -34,13 +34,27 @@ class ResultsController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('file')->storeAs('public/results', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
         $result = new Results;
         $result->department = $request->department;
         $result->batch = $request->batch;
         $result->sem = $request->sem;
         $result->monthyear = $request->monthyear;
         $result->type = $request->type;
-        $result->file = $request->file;
+        $result->file = $fileNameToStore;
         $result->save();
         return back()->withStatus(__('Result Published.'));
     }

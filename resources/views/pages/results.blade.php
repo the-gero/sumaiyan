@@ -12,7 +12,7 @@
         <div id="typography">
           <h2>Results</h2>
           @if(Auth::user()->user_type == "faculty")
-            <form method="post" action="{{ route('results.store') }}" autocomplete="off" class="form-horizontal">
+            <form method="post" action="{{ route('results.store') }}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
               @csrf
               @method('post')
 
@@ -128,7 +128,7 @@
                     <div class="input-group justify-content-center">
                       <div class="input-group-prepend col-sm-2 col-form-label">
                         <span class="input-group-text">
-                          <i class="material-icons">calendar_today</i>
+                          <i class="material-icons">attach_file</i>
                         </span>
                       </div>
                         <input class="btn col-md-3" accept=".pdf" for="file"  type="file"  name="file" id="file" value="{{ __('Upload File...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
@@ -145,6 +145,9 @@
                   </div>
               </div>
             </form>
+          @endif
+          @if(Auth::user()->user_type == "Student")
+            
           @endif
         </div>
       </div>
