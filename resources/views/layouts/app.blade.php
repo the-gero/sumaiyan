@@ -103,6 +103,7 @@
         </div>
         <!--   Core JS Files   -->
         <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
+        
         <script src="{{ asset('material') }}/js/core/popper.min.js"></script>
         <script src="{{ asset('material') }}/js/core/bootstrap-material-design.min.js"></script>
         <script src="{{ asset('material') }}/js/plugins/perfect-scrollbar.jquery.min.js"></script>
@@ -174,8 +175,39 @@
             $('#delform').attr("action","/time-table/"+ttid);
             modal.find('.modal-body #ttdid').val(ttid);
           })
+          
 
   </script>
+  {{-- <script type="text/javascript">
+    $(".from").datetimepicker({format: 'M-yyyy'});
+</script> --}} 
+  {{-- <script>
+    var startDate = new Date();
+    var fechaFin = new Date();
+    var FromEndDate = new Date();
+    var ToEndDate = new Date();
+    $('.from').datetimepicker({
+        autoclose: true,
+        minViewMode: 1,
+        format: 'mm/yyyy'
+    }).on('changeDate', function(selected){
+            startDate = new Date(selected.date.valueOf());
+            startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+            $('.to').datepicker('setStartDate', startDate);
+        }); 
+
+    $('.to').datetimepicker({
+        autoclose: true,
+        minViewMode: 1,
+        format: 'mm/yyyy'
+    }).on('changeDate', function(selected){
+            FromEndDate = new Date(selected.date.valueOf());
+            FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
+            $('.from').datepicker('setEndDate', FromEndDate);
+        });
+
+  </script> --}}
+  
         @stack('js')
     </body>
 </html>

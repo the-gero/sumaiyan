@@ -18,7 +18,7 @@ class CreateResultsTable extends Migration
             $table->string('department');
             $table->string('batch');
             $table->string('sem');
-            $table->string('year');
+            $table->string('monthyear');
             $table->string('type');
             $table->string('file');
             $table->timestamps();

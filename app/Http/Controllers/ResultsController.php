@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Results;
 class ResultsController extends Controller
 {
     /**
@@ -34,7 +34,15 @@ class ResultsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = new Results;
+        $result->department = $request->department;
+        $result->batch = $request->batch;
+        $result->sem = $request->sem;
+        $result->monthyear = $request->monthyear;
+        $result->type = $request->type;
+        $result->file = $request->file;
+        $result->save();
+        return back()->withStatus(__('Result Published.'));
     }
 
     /**
