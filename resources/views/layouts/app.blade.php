@@ -145,8 +145,7 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
-        {{-- <script>
-  
+        <script>
           $('#edit').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget) 
               var ttid = button.data('ttid') 
@@ -158,12 +157,18 @@
               var ttsubject = button.data('ttsubject') 
               var ttfaculty = button.data('ttfaculty') 
               var modal = $(this)
+              $('#editform').attr("action","/time-table/"+ttid);
               modal.find('.modal-body #tt_id').val(ttid);
-              modal.find('.modal-body #day').val(day);
-              modal.find('.modal-body #department').val(cat_id);
+              modal.find('.modal-body #ttday').val(ttday);
+              modal.find('.modal-body #tttime').val(tttime);
+              modal.find('.modal-body #ttdepartment').val(ttdepartment);
+              modal.find('.modal-body #ttbatch').val(ttbatch);
+              modal.find('.modal-body #tttype').val(tttype);
+              modal.find('.modal-body #ttsubject').val(ttsubject);
+              modal.find('.modal-body #ttfaculty').val(ttfaculty);
+
         })
-          
-        </script> --}}
+  </script>
         @stack('js')
     </body>
 </html>

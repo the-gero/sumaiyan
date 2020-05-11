@@ -512,7 +512,7 @@
           <button type="button" class="close float-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           
         </div>
-        <form action="#" method="post">
+        <form action="#" id="editform" method="post">
             {{method_field('patch')}}
             @csrf
           <div class="modal-body">
@@ -528,7 +528,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><input type="text" name="day" id="day" class="btn dropdown-toggle" readonly value="{{ __('Day...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required >
+                    <td><input type="text" name="ttday" id="ttday" class="btn dropdown-toggle" readonly value="{{ __('Day...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required >
                       <div class="dropdown-menu" aria-labelledby="day" >
                         <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Monday');" >Monday</a>
                         <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Tuesday');" >Tuesday</a>
@@ -538,7 +538,7 @@
                         <a class="dropdown-item" onclick="document.getElementById('day').setAttribute('value','Saturdayday');" >Saturday</a>
                       </div>
                     </td>
-                    <td><input type="time" class="btn dropdown-toggle"  name="time" id="time" style="/* border-radius:3px; border-width:14px; border-style:solid; */ color: white; background-color: purple;border-color: purple;" >
+                    <td><input type="time" class="btn dropdown-toggle"  name="tttime" id="tttime" style="/* border-radius:3px; border-width:14px; border-style:solid; */ color: white; background-color: purple;border-color: purple;" >
                       
                     </td>
                   </tr>
@@ -553,16 +553,16 @@
               </thead>
               <tbody>
                 <tr>
-                    <td><input class="btn dropdown-toggle" type="text" readonly name="department" id="department" style="color: white; background-color: purple;border-color: purple;" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
-                      <div class="dropdown-menu" aria-labelledby="department">
-                        <a class="dropdown-item"  onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
-                        <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                    <td><input class="btn dropdown-toggle" type="text" readonly name="ttdepartment" id="ttdepartment" style="color: white; background-color: purple;border-color: purple;" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                      <div class="dropdown-menu" aria-labelledby="ttdepartment">
+                        <a class="dropdown-item"  onclick="document.getElementById('ttdepartment').setAttribute('value','Computer Science');" >Computer Science</a>
+                        <a class="dropdown-item" onclick="document.getElementById('ttdepartment').setAttribute('value','Information Technology');" >Information Technology</a>
                       </div></td>
-                    <td><input class="btn dropdown-toggle" type="text" readonly name="batch" id="batch" value="{{ __('Batch...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
-                      <div class="dropdown-menu" aria-labelledby="batch">
-                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
-                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
-                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                    <td><input class="btn dropdown-toggle" type="text" readonly name="ttbatch" id="ttbatch" value="{{ __('Batch...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                      <div class="dropdown-menu" aria-labelledby="ttbatch">
+                        <a class="dropdown-item" onclick="document.getElementById('ttbatch').setAttribute('value','First Year');" >First Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('ttbatch').setAttribute('value','Second Year');" >Second Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('ttbatch').setAttribute('value','Third Year');">Third Year</a>
                       </div>
                     </td>
                 </tr>  
@@ -580,13 +580,13 @@
                     </th>
                     </thead>
                     <tbody>
-                      <td><input type="text" name='type' id='type' class="btn dropdown-toggle" readonly value="{{ __('Type...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required >
-                        <div class="dropdown-menu" aria-labelledby="type" >
-                          <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Lecture');" >Lecture</a>
-                          <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Practical');" >Practical</a>
+                      <td><input type="text" name='tttype' id='tttype' class="btn dropdown-toggle" readonly value="{{ __('Type...') }}" style="color: white; background-color: purple;border-color: purple;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required >
+                        <div class="dropdown-menu" aria-labelledby="tttype" >
+                          <a class="dropdown-item" onclick="document.getElementById('tttype').setAttribute('value','Lecture');" >Lecture</a>
+                          <a class="dropdown-item" onclick="document.getElementById('tttype').setAttribute('value','Practical');" >Practical</a>
                         </div>
                       </td>
-                      <td><input type="text" name='subject' placeholder="Subject" class="btn dropdown-toggle" style="color: white; background-color: purple;border-color: purple;" ></td>
+                      <td><input type="text" name='subject' id="ttsubject" placeholder="Subject" class="btn dropdown-toggle" style="color: white; background-color: purple;border-color: purple;" ></td>
                     </tbody>
                     <thead class=" text-primary">
                       <th>
@@ -598,7 +598,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td><input type="text" name='faculty' placeholder="Faculty" class="btn dropdown-toggle" style=" color: white; background-color: purple;border-color: purple;"  ></td>
+                        <td><input type="text" name='faculty' id="ttfaculty" placeholder="Faculty" class="btn dropdown-toggle" style=" color: white; background-color: purple;border-color: purple;"  ></td>
                         <td>
                         <button type="submit" class="btn btn-primary">Save Changes</button></td>
                       </tr>
@@ -612,26 +612,7 @@
       </div>
     </div>
   </div>
-  <script>
   
-    $('#edit').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) 
-        var ttid = button.data('ttid') 
-        var ttday = button.data('ttday') 
-        var tttime = button.data('tttime') 
-        var ttdepartment = button.data('ttdepartment') 
-        var ttbatch = button.data('ttbatch') 
-        var tttype = button.data('tttype') 
-        var ttsubject = button.data('ttsubject') 
-        var ttfaculty = button.data('ttfaculty') 
-        var modal = $(this)
-        modal.find('.modal-body #tt_id').val(ttid);
-        modal.find('.modal-body #day').val(day);
-        modal.find('.modal-body #department').val(ttdepartment);
-        modal.find('.modal-body #batch').val(ttbatch);
-  })
-    
-  </script>
   @endif
 
   
