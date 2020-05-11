@@ -159,15 +159,22 @@
               var modal = $(this)
               $('#editform').attr("action","/time-table/"+ttid);
               modal.find('.modal-body #tt_id').val(ttid);
-              modal.find('.modal-body #ttday').val(ttday);
-              modal.find('.modal-body #tttime').val(tttime);
-              modal.find('.modal-body #ttdepartment').val(ttdepartment);
-              modal.find('.modal-body #ttbatch').val(ttbatch);
-              modal.find('.modal-body #tttype').val(tttype);
-              modal.find('.modal-body #ttsubject').val(ttsubject);
-              modal.find('.modal-body #ttfaculty').val(ttfaculty);
-
+              modal.find('.modal-body #ttday').attr("value",ttday);
+              modal.find('.modal-body #tttime').attr("value",tttime);
+              modal.find('.modal-body #ttbatch').attr("value",ttbatch);
+              modal.find('.modal-body #tttype').attr("value",tttype);
+              modal.find('.modal-body #ttsubject').attr("value",ttsubject);
+              modal.find('.modal-body #ttfaculty').attr("value",ttfaculty);
+              modal.find('.modal-body #ttdepartment').attr("value",ttdepartment);
         })
+        $('#delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            var ttid = button.data('ttid') 
+            var modal = $(this)
+            $('#delform').attr("action","/time-table/"+ttid);
+            modal.find('.modal-body #ttdid').val(ttid);
+          })
+
   </script>
         @stack('js')
     </body>

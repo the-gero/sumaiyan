@@ -85,7 +85,16 @@ class TimeTableController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $timetable = TimeTable::find($id);
+        $timetable->day = $request->ttday;
+        $timetable->time = $request->tttime;
+        $timetable->department = $request->ttdepartment;
+        $timetable->batch = $request->ttbatch;
+        $timetable->type = $request->tttype;
+        $timetable->subject = $request->ttsubject;
+        $timetable->faculty = $request->ttfaculty;
+        $timetable->save();
+        return back()->withStatus(__('Time-Table entry successfully udated.'));
     }
 
     /**
