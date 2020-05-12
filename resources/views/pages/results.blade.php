@@ -2,11 +2,23 @@
 
 @section('content')
 <div class="content">
+  @if (session('status'))
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="material-icons">close</i>
+                </button>
+                <span>{{ session('status') }}</span>
+              </div>
+            </div>
+          </div>
+        @endif   
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
         <h4 class="card-title">Results Corner</h4>
-        <p class="card-category">Here you can find all your results of your exams</p>
+        <p class="card-category">@if(Auth::user()->user_type == "faculty") Manage Results @endif @if(Auth::user()->user_type == "student") Here you can find all your results of your exams @endif </p>
       </div>
       <div class="card-body">
         <div id="typography">
@@ -143,11 +155,364 @@
                   <div class="card-footer ml-auto mr-auto justify-content-center">
                     <button type="submit" class="btn btn-primary ">{{ __('Add Result') }}</button>
                   </div>
-              </div>
+              
             </form>
+          </div>
+      </div>
+            <div class="card">
+              <div class="card-header card-header-success">
+                <h4 class="card-title">Regular</h4>
+                <p class="card-category">Regular Semesterwise results. </p>
+              </div>
+              <div class="card-body">
+                <div id="accordion" class="accordion">
+                  <div class="card mb-0">
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                      <a class="card-title"> TYCS </a>
+                    </div>
+                    <div id="collapse1" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Computer Science" && $result->batch == "Third Year" && $result->type == "Regular")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                      <a class="card-title"> TYIT </a>
+                    </div>
+                    <div id="collapse2" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Information Technology" && $result->batch == "Third Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                      <a class="card-title"> SYCS </a>
+                    </div>
+                    <div id="collapse3" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Computer Science" && $result->batch == "Second Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                      <a class="card-title"> SYIT </a>
+                    </div>
+                    <div id="collapse4" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Information Technology" && $result->batch == "Second Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                      <a class="card-title"> FYCS </a>
+                    </div>
+                    <div id="collapse5" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Computer Science" && $result->batch == "First Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                      <a class="card-title"> FYIT </a>
+                    </div>
+                    <div id="collapse6" class="collapse" data-parent="#accordion">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Information Technology" && $result->batch == "First Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="collapse" id="multiCollapseExample1">
+                      <div class="card card-body">
+                        <iframe src="#" id="resultframe" class="card-body" style="height:40vh" >Result</iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           @endif
-          @if(Auth::user()->user_type == "Student")
-            
+        </div>
+        @if(Auth::user()->user_type == "faculty")
+          <div class="card">
+            <div id="typography1">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">AT/KT</h4>
+                <p class="card-category">AT/KT Semesterwise results. </p>
+              </div>
+              <div class="card-body">
+                <div id="accordion1" class="accordion">
+                  <div class="card mb-0">
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse12">
+                      <a class="card-title"> TYCS </a>
+                    </div>
+                    <div id="collapse12" class="collapse" data-parent="#accordion1">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Computer Science" && $result->batch == "Third Year" && $result->type == "AT/KT")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse21">
+                      <a class="card-title"> TYIT </a>
+                    </div>
+                    <div id="collapse21" class="collapse" data-parent="#accordion1">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Information Technology" && $result->batch == "Third Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse31">
+                      <a class="card-title"> SYCS </a>
+                    </div>
+                    <div id="collapse31" class="collapse" data-parent="#accordion1">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Computer Science" && $result->batch == "Second Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse41">
+                      <a class="card-title"> SYIT </a>
+                    </div>
+                    <div id="collapse41" class="collapse" data-parent="#accordion1">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Information Technology" && $result->batch == "Second Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse51">
+                      <a class="card-title"> FYCS </a>
+                    </div>
+                    <div id="collapse51" class="collapse" data-parent="#accordion1">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Computer Science" && $result->batch == "First Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse61">
+                      <a class="card-title"> FYIT </a>
+                    </div>
+                    <div id="collapse61" class="collapse" data-parent="#accordion1">
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            @foreach($results as $result)
+                              @if($result->department == "Information Technology" && $result->batch == "First Year")
+                                <tr>
+                                  <td class="text-primary">SEM : {{$result->sem}}</td>
+                                  <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                  <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                </tr>
+                              @endif
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="collapse" id="multiCollapseExample2">
+                      <div class="card card-body">
+                        <iframe src="#" id="resultframe1" class="card-body" style="height:40vh" >Result</iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        @endif
+        <div id="typography4">
+          @if(Auth::user()->user_type == "student")
+                <div class="card">
+                  <div class="card-header card-header-success">
+                    <h4 class="card-title">Regular</h4>
+                    <p class="card-category">Regular Semesterwise results. </p>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      <table class="table">
+                        <tbody>
+                          @foreach($results as $result)
+                            @if($result->department == Auth::user()->department && $result->batch == Auth::user()->batch && $result->type == "Regular" )
+                              <tr>
+                                <td class="text-primary">SEM : {{$result->sem}}</td>
+                                <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                              </tr>
+                            @endif
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </p>
+                    <div class="row">
+                      <div class="col">
+                        <div class="collapse" id="multiCollapseExample1">
+                          <div class="card card-body">
+                            <iframe src="#" id="resultframe" class="card-body" style="height:40vh" >Result</iframe>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-header card-header-danger">
+                    <h4 class="card-title">AT/KT</h4>
+                    <p class="card-category">AT/KT Semesterwise results. </p>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      <table class="table">
+                        <tbody>
+                          @foreach($results as $result)
+                            @if($result->department == Auth::user()->department && $result->batch == Auth::user()->batch && $result->type == "AT/KT" )
+                              <tr>
+                                <td class="text-primary">SEM : {{$result->sem}}</td>
+                                <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
+                                <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                              </tr>
+                            @endif
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </p>
+                    <div class="row">
+                      <div class="col">
+                        <div class="collapse" id="multiCollapseExample2">
+                          <div class="card card-body">
+                            <iframe src="#" id="resultframe1" class="card-body" style="height:40vh" >Result</iframe>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
           @endif
         </div>
       </div>

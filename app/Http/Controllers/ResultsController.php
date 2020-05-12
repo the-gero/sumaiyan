@@ -11,9 +11,11 @@ class ResultsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        return view("pages.results");
+        $results = Results::orderBy('id','asc')->get();
+        return view("pages.results")->with('results',$results);
     }
 
     /**

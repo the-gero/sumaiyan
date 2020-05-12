@@ -17,6 +17,17 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
     </head>
+    <style>
+      .accordion .card-header:after {
+          font-family: 'FontAwesome';  
+          content: "\f068";
+          float: right; 
+      }
+      .accordion .card-header.collapsed:after {
+          /* symbol for "collapsed" panels */
+          content: "\f067"; 
+      }
+    </style>
     <body class="{{ $class ?? '' }}">
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -178,6 +189,7 @@
           
 
   </script>
+  
   {{-- <script type="text/javascript">
     $(".from").datetimepicker({format: 'M-yyyy'});
 </script> --}} 

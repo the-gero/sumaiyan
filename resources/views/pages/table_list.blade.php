@@ -179,75 +179,13 @@
                 <div class="table-responsive">
                   @if(count($fulltts)>0)
                     <div id="accordion" class="accordion">
-                        <style>
-                          .accordion .card-header:after {
-                              font-family: 'FontAwesome';  
-                              content: "\f068";
-                              float: right; 
-                          }
-                          .accordion .card-header.collapsed:after {
-                              /* symbol for "collapsed" panels */
-                              content: "\f067"; 
-                          }
-                        </style>
                         <div class="card mb-0">
-                            <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
-                                <a class="card-title"> <h4> Computer Science TY</h4> </a>
+                            <div class="card-header collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseOne">
+                                <a class="card-title"> Computer Science TY </a>
                             </div>
-                            <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
-                              <table class="table" id="CS-TY">
-                                <thead class="text-primary">
-                                  <th>
-                                    Day
-                                  </th>
-                                  <th>
-                                    Time
-                                  </th>
-                                  <th>
-                                    Department
-                                  </th>
-                                  <th>
-                                    Batch
-                                  </th>
-                                  <th>
-                                    Type
-                                  </th>
-                                  <th>
-                                    Subject
-                                  </th>
-                                  <th>
-                                    Faculty
-                                  </th>
-                                  <th>
-                                    Action
-                                  </th>
-                                </thead>
-                                <tbody>
-                                    @foreach($fulltts as $fulltt)
-                                      @if($fulltt->department == "Computer Science" &&  $fulltt->batch == "Third Year")
-                                        <tr>
-                                          <td>{{$fulltt->day}}</td>
-                                          <td>{{$fulltt->time}}</td>
-                                          <td>{{$fulltt->department}}</td>
-                                          <td>{{$fulltt->batch}}</td>
-                                          <td>{{$fulltt->type}}</td>
-                                          <td>{{$fulltt->subject}}</td>
-                                          <td>{{$fulltt->faculty}}</td>
-                                          <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit" >Update</button> 
-                                              <button type="submit" class="btn btn-danger" data-ttid="{{$fulltt->id}}" data-toggle="modal" data-target="#delete">Delete</button>
-                                        </td>
-                                        </tr>
-                                      @endif
-                                    @endforeach
-                                  </tbody>
-                              </table>
-                            </div>
-                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                <a class="card-title"> <h4>Information Technology TY</h4> </a>
-                            </div>
-                            <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
-                              <table class="table" id="IT-TY">
-                                <tbody>
+                            <div id="collapseOne" class="collapse" data-parent="#accordion">
+                              <div class="card-body">
+                                <table class="table" id="CS-TY">
                                   <thead class="text-primary">
                                     <th>
                                       Day
@@ -274,9 +212,9 @@
                                       Action
                                     </th>
                                   </thead>
-                                <tbody>
+                                  <tbody>
                                     @foreach($fulltts as $fulltt)
-                                      @if($fulltt->department == "Information Technology" &&  $fulltt->batch == "Third Year")
+                                      @if($fulltt->department == "Computer Science" &&  $fulltt->batch == "Third Year")
                                         <tr>
                                           <td>{{$fulltt->day}}</td>
                                           <td>{{$fulltt->time}}</td>
@@ -285,14 +223,69 @@
                                           <td>{{$fulltt->type}}</td>
                                           <td>{{$fulltt->subject}}</td>
                                           <td>{{$fulltt->faculty}}</td>
-                                          <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> 
-                                              <button type="submit" class="btn btn-danger" data-ttid="{{$fulltt->id}}" data-toggle="modal" data-target="#delete">Delete</button>
-                                        </td>
+                                          <td>
+                                            <button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit" >Update</button> 
+                                            <button type="submit" class="btn btn-danger" data-ttid="{{$fulltt->id}}" data-toggle="modal" data-target="#delete">Delete</button>
+                                          </td>
                                         </tr>
                                       @endif
                                     @endforeach
                                   </tbody>
-                              </table>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <a class="card-title"> <h4>Information Technology TY</h4> </a>
+                            </div>
+                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                              <div class="card-body">
+                                <table class="table" id="IT-TY">
+                                    <thead class="text-primary">
+                                      <th>
+                                        Day
+                                      </th>
+                                      <th>
+                                        Time
+                                      </th>
+                                      <th>
+                                        Department
+                                      </th>
+                                      <th>
+                                        Batch
+                                      </th>
+                                      <th>
+                                        Type
+                                      </th>
+                                      <th>
+                                        Subject
+                                      </th>
+                                      <th>
+                                        Faculty
+                                      </th>
+                                      <th>
+                                        Action
+                                      </th>
+                                    </thead>
+                                    <tbody>
+                                      @foreach($fulltts as $fulltt)
+                                        @if($fulltt->department == "Information Technology" &&  $fulltt->batch == "Third Year")
+                                          <tr>
+                                            <td>{{$fulltt->day}}</td>
+                                            <td>{{$fulltt->time}}</td>
+                                            <td>{{$fulltt->department}}</td>
+                                            <td>{{$fulltt->batch}}</td>
+                                            <td>{{$fulltt->type}}</td>
+                                            <td>{{$fulltt->subject}}</td>
+                                            <td>{{$fulltt->faculty}}</td>
+                                            <td><button class="btn btn-success" data-ttid="{{$fulltt->id}}" data-ttid="{{$fulltt->id}}" data-ttday="{{$fulltt->day}}" data-tttime="{{$fulltt->time}}" data-ttdepartment="{{$fulltt->department}}" data-ttbatch="{{$fulltt->batch}}" data-tttype="{{$fulltt->type}}" data-ttsubject="{{$fulltt->subject}}" data-ttfaculty="{{$fulltt->faculty}}" data-toggle="modal" data-target="#edit">Update</button> 
+                                                <button type="submit" class="btn btn-danger" data-ttid="{{$fulltt->id}}" data-toggle="modal" data-target="#delete">Delete</button>
+                                          </td>
+                                          </tr>
+                                        @endif
+                                      @endforeach
+                                    </tbody>
+                                </table>
+                              </div>
                             </div>
                             <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                 <a class="card-title"> <h4>Computer Science SY</h4> </a>
