@@ -13,6 +13,10 @@ class TimeTableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         if(Auth::user()->user_type == 'student')

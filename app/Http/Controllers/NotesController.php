@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Notes;
+use Auth;
+use Storage;
 class NotesController extends Controller
 {
     /**
@@ -11,6 +13,11 @@ class NotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         return view('pages.notes');
@@ -34,7 +41,33 @@ class NotesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('file')->storeAs('public/notes/'.Auth::id(), $fileNameToStore);
+            $size = Storage::size('/public'.'/notes'.'/'.Auth::id().'/'.$fileNameToStore);
+        } else {
+            $fileNameToStore = 'nonote.txt';
+        }
+        $note = new Notes;
+        $note->user_id = Auth::id();
+        $note->department = $request->department;
+        $note->batch = $request->batch;
+        $note->sem = $request->sem;
+        $note->subject = $request->subject;
+        $note->description = $request->description;
+        $note->type = $request->type;
+        $note->file = $fileNameToStore;
+        $note->size = $size;
+        $note->save();
+        return back()->withStatus(__('Notes Published.'));
     }
 
     /**

@@ -14,7 +14,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header card-header-info">
-                <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Teachers Notes <button class="btn btn-danger">Add new </button> @endif @if(Auth::user()->user_type == "student") Teachers Notes @endif </h4>
+                <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Teachers Notes <button class="btn btn-danger" data-toggle="modal" data-target="#addnote" >Add new </button> @endif @if(Auth::user()->user_type == "student") Teachers Notes @endif </h4>
               </div>
               <div class="card-body">
                 <div class="alert alert-success">
@@ -51,5 +51,163 @@
       </div> --}}
     </div>
   </div>
+</div>
+<div class="modal fade table " id="addnote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content card">
+      <div class="modal-header card-header card-header-primary">
+        <h4 class="modal-title card-title" id="myModalLabel">Add Notes</h4>
+        <button type="button" class="close float-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        
+      </div>
+        <div class="modal-body card-body">
+          
+          <form method="post" action="#" enctype="multipart/form-data" autocomplete="off" class="form">
+            @csrf
+            <input type="hidden" name="noteid" id="noteid" value="">
+            
+                <div class="row  bmd-form-group{{ $errors->has('department') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text ">
+                        <i class="material-icons">account_balance</i>
+                      </span>
+                    </div>
+                      <input class="btn dropdown-toggle col-md-6" type="text" readonly name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                      <div class="dropdown-menu" aria-labelledby="department">
+                        <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
+                        <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                      </div>
+                    
+                  </div>
+                  @if ($errors->has('department'))
+                    <div id="department-error" class="error text-danger pl-3" for="department" style="display: block;">
+                    <strong>{{ $errors->first('department') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('batch') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text">
+                        <i class="material-icons">class</i>
+                      </span>
+                    </div>
+                      <input class="btn dropdown-toggle col-md-6" type="text" readonly name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                      <div class="dropdown-menu" aria-labelledby="batch">
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
+                        <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                      </div>
+                  </div>
+                  
+                  @if ($errors->has('batch'))
+                    <div id="batch-error" class="error text-danger pl-3" for="batch" style="display: block;">
+                    <strong>{{ $errors->first('batch') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('sem') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text">
+                        <i class="material-icons">timelapse</i>
+                      </span>
+                    </div>
+                      <input class="btn dropdown-toggle col-md-6 " type="text" readonly name="sem" id="sem" value="{{ __('Sem...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                      <div class="dropdown-menu" aria-labelledby="sem">
+                        <a class="dropdown-item" onclick="document.getElementById('sem').setAttribute('value','I');" >I</a>
+                        <a class="dropdown-item" onclick="document.getElementById('sem').setAttribute('value','II');" >II</a>
+                        <a class="dropdown-item" onclick="document.getElementById('sem').setAttribute('value','III');">III</a>
+                        <a class="dropdown-item" onclick="document.getElementById('sem').setAttribute('value','IV');">IV</a>
+                        <a class="dropdown-item" onclick="document.getElementById('sem').setAttribute('value','V');">V</a>
+                        <a class="dropdown-item" onclick="document.getElementById('sem').setAttribute('value','VI');">VI</a>
+                        
+                      </div>
+                  </div>
+                  
+                  @if ($errors->has('sem'))
+                    <div id="sem-error" class="error text-danger pl-3" for="sem" style="display: block;">
+                    <strong>{{ $errors->first('sem') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('description') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text">
+                        <i class="material-icons">description</i>
+                      </span>
+                    </div>
+                      <input class="btn col-md-6 from"  type="textarea"  name="description" id="description" placeholder="{{ __('Description...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                  </div>
+                  
+                  @if ($errors->has('description'))
+                    <div id="description-error" class="error text-danger pl-3 "  style="display: block;">
+                    <strong>{{ $errors->first('description') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('subject') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text">
+                        <i class="material-icons">subject</i>
+                      </span>
+                    </div>
+                      <input class="btn col-md-6 from"  type="text"  name="subject" id="subject" placeholder="{{ __('subject...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                  </div>
+                  
+                  @if ($errors->has('subject'))
+                    <div id="subject-error" class="error text-danger pl-3 "  style="display: block;">
+                    <strong>{{ $errors->first('subject') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('type') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text">
+                        <i class="material-icons">remove_red_eye</i>
+                      </span>
+                    </div>
+                      <input class="btn dropdown-toggle col-md-6" type="text" readonly name="type" id="type" value="{{ __('Privacy...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                      <div class="dropdown-menu" aria-labelledby="type">
+                        <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Private');" >Private</a>
+                        <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Public');" >Public</a>
+                      </div>
+                  </div>
+                  
+                  @if ($errors->has('type'))
+                    <div id="type-error" class="error text-danger pl-3" for="type" style="display: block;">
+                    <strong>{{ $errors->first('type') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="row bmd-form-group{{ $errors->has('file') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend col-sm-3 col-form-label">
+                      <span class="input-group-text">
+                        <i class="material-icons">attach_file</i>
+                      </span>
+                    </div>
+                      <input class="btn col-md-6" accept=".pdf" for="file"  type="file"  name="file" id="file" value="{{ __('Upload File...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                  </div>
+                  
+                  @if ($errors->has('file'))
+                    <div id="file-error" class="error text-danger pl-3 " for="file" style="display: block;">
+                    <strong>{{ $errors->first('file') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="card-footer ml-auto mr-auto justify-content-center">
+                  <button type="submit" class="btn btn-primary ">{{ __('Add Result') }}</button>
+                </div>
+              </form>
+            </div>
+          
+    </div>
+  </div>
+</div>
 </div>
 @endsection
