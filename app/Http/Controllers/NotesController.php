@@ -20,7 +20,16 @@ class NotesController extends Controller
     
     public function index()
     {
-        return view('pages.notes');
+        if (Auth::user()->user_type == 'faculty') 
+        {
+            $tnotes = Notes::where('department',Auth::user()->department)->where('user_id',Auth::id())->get();
+            $notes = Notes::where('department',Auth::user()->department)->where('type','Public')->get();
+            return view('pages.notes')->with('tnotes',$tnotes)->with('notes',$notes);
+        }
+        $notes = Notes::where('department',Auth::user()->department)->where('batch',Auth::user()->batch)->where('type','Public')->get();
+        $pnotes = Notes::where('department',Auth::user()->department)->where('batch',Auth::user()->batch)->where('type','Private')->get();
+        return view('pages.notes')->with('notes',$notes)->with('pnotes',$pnotes);
+        return $tnotes.''.$notes.$pnotes;
     }
 
     /**

@@ -17,16 +17,39 @@
                 <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Teachers Notes <button class="btn btn-danger" data-toggle="modal" data-target="#addnote" >Add new </button> @endif @if(Auth::user()->user_type == "student") Teachers Notes @endif </h4>
               </div>
               <div class="card-body">
-                <div class="alert alert-success">
-                  <span>This is a plain notification</span>
-                </div>
+                @if( Auth::user()->user_type == 'faculty' && count($tnotes)>0)
+                  @foreach($tnotes as $tnote)
+                    <div class="alert alert-warning">
+                      <span> {{$tnote}} </span>
+                    </div>
+                  @endforeach
+                @endif
+                @if( count($notes)>0)
+                  @foreach($notes as $note)
+                    <div @if(Auth::user()->id == $note->id) class="alert alert-primary" @else class="alert alert-success" @endif>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          Subject :{{$note->subject}}
+                        </div>
+                        <div class="col-sm-4">
+                          Description :{{$note->description}}
+                        </div>
+                        <div class="col-sm-2">
+                           <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
+                        </div>
+                        
+                      </div>
+                      <span><small class="float-right">by {{$note->user->name}} from {{$note->user->batch}} </small></span> 
+                    </div>
+                  @endforeach
+                @endif
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card">
               <div class="card-header card-header-info">
-                <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Student Notes  @endif @if(Auth::user()->user_type == "student") Personal Notes <button class="btn btn-danger">Add new </button> @endif </h4>
+                <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Student Notes  @endif @if(Auth::user()->user_type == "student") Personal Notes <button class="btn btn-danger" data-toggle="modal" data-target="#addnote">Add new </button> @endif </h4>
               </div>
               <div class="card-body">
                 <div class="alert alert-success">
@@ -173,7 +196,7 @@
                     </div>
                       <input class="btn dropdown-toggle col-md-6" type="text" readonly name="type" id="type" value="{{ __('Privacy...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
                       <div class="dropdown-menu" aria-labelledby="type">
-                        <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Private');" >Private</a>
+                        @if(Auth::user()->user_type)<a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Private');" >Private</a> @endif
                         <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Public');" >Public</a>
                       </div>
                   </div>

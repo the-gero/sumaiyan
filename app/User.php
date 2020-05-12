@@ -28,6 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function notes(){
+        return $this->hasMany('App\Notes');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
