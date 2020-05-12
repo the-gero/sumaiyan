@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="content">
-  @if (session('status'))
+        @if (session('status'))
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-success">
@@ -13,7 +13,20 @@
               </div>
             </div>
           </div>
-        @endif   
+        @endif
+        @if (session('error'))
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="material-icons">close</i>
+                </button>
+                <span>{{ session('error') }}</span>
+              </div>
+            </div>
+          </div>
+        @endif
+           
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
@@ -107,7 +120,7 @@
                           <i class="material-icons">calendar_today</i>
                         </span>
                       </div>
-                        <input class="btn col-md-3 from" for="monthyear"  type="month"  name="monthyear" id="monthyear" value="{{ __('Month and Year...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                        <input class="btn col-md-3 from" for="monthyear" onclick="(this).setAttribute('type','month');" type="text"  name="monthyear" id="monthyear" value="{{ __('Month and Year...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
                     </div>
                     
                     @if ($errors->has('monthyear'))
@@ -180,6 +193,8 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
+                                  <td></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -200,6 +215,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -220,6 +236,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -240,6 +257,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -260,6 +278,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -280,6 +299,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -325,6 +345,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -345,6 +366,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -365,6 +387,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -385,6 +408,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -405,6 +429,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -425,6 +450,7 @@
                                   <td class="text-primary">SEM : {{$result->sem}}</td>
                                   <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                   <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                  <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                                 </tr>
                               @endif
                             @endforeach
@@ -466,6 +492,7 @@
                                 <td class="text-primary">SEM : {{$result->sem}}</td>
                                 <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                 <td><a class="btn btn-primary" onclick="document.getElementById('resultframe').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show Result</a></td>
+                                <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                               </tr>
                             @endif
                           @endforeach
@@ -496,6 +523,7 @@
                                 <td class="text-primary">SEM : {{$result->sem}}</td>
                                 <td class="text-primary">Year / Month : {{$result->monthyear}}</td>
                                 <td><a class="btn btn-primary" onclick="document.getElementById('resultframe1').setAttribute('src','/storage/results/{{$result->file}}'); " data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Show Result</a></td>
+                                <td><button type="submit" class="btn btn-danger" data-rid="{{$result->id}}" data-toggle="modal" data-target="#delete1">Delete</button></td>
                               </tr>
                             @endif
                           @endforeach
@@ -519,5 +547,28 @@
     </div>
   </div>
 </div>
-
+<div class="modal modal-danger fade" id="delete1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="myModalLabel">Delete Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form action="#" id="delformR" method="post">
+          {{method_field('delete')}}
+          @csrf
+        <div class="modal-body">
+        <p class="text-center">
+          Are you sure you want to delete this result?
+        </p>
+            <input type="hidden" name="rid" id="rid"  value="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
+          <button type="submit" class="btn btn-warning">Yes, Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 @endsection

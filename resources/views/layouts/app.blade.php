@@ -186,6 +186,13 @@
             $('#delform').attr("action","/time-table/"+ttid);
             modal.find('.modal-body #ttdid').val(ttid);
           })
+        $('#delete1').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            var rid = button.data('rid') 
+            var modal = $(this)
+            $('#delformR').attr("action","/results/"+rid);
+            modal.find('.modal-body #rid').val(rid);
+          })
           
 
   </script>

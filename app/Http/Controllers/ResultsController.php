@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Results;
+use Storage;
+use Auth;
 class ResultsController extends Controller
 {
     /**
@@ -103,6 +105,21 @@ class ResultsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $result = Results::find($id);
+        if (!isset($result)){
+            return redirect('/results')->withError('No result Found');
+        }
+            // Check for correct user
+        if(auth()->user()->user_type !== "faculty"){
+            return redirect('/results')->withError('Unauthorized Page');
+        }
+    
+        if($result->file != 'noimage.jpg'){
+        // Delete Image
+            Storage::delete('public/results/'.$result->file);
+        }
+            
+        $result->delete();
+        return redirect('/results')->withStatus('Result Removed');
     }
 }
