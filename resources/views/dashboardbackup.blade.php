@@ -11,8 +11,8 @@
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Used Space</p>
-              <h3 class="card-title">0.49 of 1
-                GB
+              <h3 class="card-title">49/50
+                <small>GB</small>
               </h3>
             </div>
             <div class="card-footer">
@@ -30,7 +30,7 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Homeworks</p>
-              <h3 class="card-title">3 are remaining</h3>
+              <h3 class="card-title">... Left</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -72,7 +72,57 @@
           </div>
         </div>
       </div>
-      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-success">
+              <div class="ct-chart" id="dailySalesChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Daily Progress</h4>
+              <p class="card-category">
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in todays outcome.</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> updated 4 minutes ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-warning">
+              <div class="ct-chart" id="websiteViewsChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Workshops</h4>
+              <p class="card-category">Last Workshops Performance</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> updated 2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-danger">
+              <div class="ct-chart" id="completedTasksChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Completed Tasks</h4>
+              <p class="card-category">Last  Performance</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i>  2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-6 col-md-12">
           <div class="card">

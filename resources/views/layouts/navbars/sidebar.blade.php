@@ -49,6 +49,12 @@
             <p>{{ __('Time Table') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'notes' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('notes.index') }}">
+          <i class="material-icons">books</i>
+            <p>{{ __('Notes') }}</p>
+        </a>
+      </li>
       <li class="nav-item{{ $activePage == 'results' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('results.index') }}">
           <i class="material-icons">library_books</i>
@@ -73,18 +79,18 @@
           <p>{{ __('Notifications') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
+      {{-- <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
         <a class="nav-link" href="#">
           <i class="material-icons">language</i>
           <p>{{ __('RTL Support') }}</p>
         </a>
-      </li>
-      <li class="nav-item {{ $activePage == 'upgrade' ? ' active' : '' }}">
+      </li> --}}
+      {{-- <li class="nav-item {{ $activePage == 'upgrade' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('upgrade') }}">
           <i class="material-icons">unarchive</i>
           <p>{{ __('Upgrade to PRO') }}</p>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </div>
 </div>

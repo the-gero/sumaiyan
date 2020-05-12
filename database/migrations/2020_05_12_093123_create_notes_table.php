@@ -15,6 +15,14 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('department');
+            $table->string('batch');
+            $table->string('sem');
+            $table->string('subject');
+            $table->longText('description');
+            $table->string('type');
+            $table->string('file');
+            $table->string('size');
             $table->timestamps();
         });
     }

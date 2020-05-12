@@ -19,6 +19,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('/time-table','TimeTableController');
 Route::resource('/results','ResultsController');
+Route::resource('/notes','NotesController');
 Route::group(['middleware' => 'auth'], function () {
 	/* Route::get('table-list', function () {
 		return view('pages.table_list');
