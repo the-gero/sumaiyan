@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h3 class="card-title">Notes</h3>
+        <h1 class="card-title">Notes</h1>
         <p class="card-category">Get your notes here or post your own notes.</p>
       </div>
       <br>
@@ -14,33 +14,47 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header card-header-info">
-                <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Teachers Notes <button class="btn btn-danger" data-toggle="modal" data-target="#addnote" >Add new </button> @endif @if(Auth::user()->user_type == "student") Teachers Notes @endif </h4>
+                <h2 class="card-title">Teachers Notes</h2>
               </div>
               <div class="card-body">
                 @if( Auth::user()->user_type == 'faculty' && count($tnotes)>0)
                   @foreach($tnotes as $tnote)
-                    <div class="alert alert-warning">
-                      <span> {{$tnote}} </span>
+                  <div @if(Auth::user()->id == $tnote->user_id) class="alert alert-warning" @else class="alert alert-success" @endif>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        Subject :{{$tnote->subject}}
+                      </div>
+                      <div class="col-sm-4">
+                        Description :{{$tnote->description}}
+                      </div>
+                      <div class="col-sm-2">
+                         <a href="/storage/notes/{{$tnote->user_id}}/{{$tnote->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
+                      </div>
                     </div>
+                    <span><small class="float-right">by {{$tnote->user->name}} from @if($tnote->user->batch == "") {{$tnote->user->department}} @else {{$tnote->user->batch}}  @endif</small></span> 
+                  </div>
                   @endforeach
                 @endif
                 @if( count($notes)>0)
                   @foreach($notes as $note)
-                    <div @if(Auth::user()->id == $note->id) class="alert alert-primary" @else class="alert alert-success" @endif>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          Subject :{{$note->subject}}
+                    @if($note->user_id != Auth::id())
+                      <div @if(Auth::user()->id == $note->user_id) class="alert alert-primary" @else class="alert alert-success" @endif>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            Subject :{{$note->subject}}
+                          </div>
+                          <div class="col-sm-4">
+                            Description :{{$note->description}}
+                          </div>
+                          <div class="col-sm-2">
+                            <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
+                          </div>
+                          
                         </div>
-                        <div class="col-sm-4">
-                          Description :{{$note->description}}
-                        </div>
-                        <div class="col-sm-2">
-                           <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
-                        </div>
-                        
+                        <span class="justify-content-end  ">
+                          <small class="float-right">by {{$note->user->name}} from {{$note->user->batch}} </small></span> 
                       </div>
-                      <span><small class="float-right">by {{$note->user->name}} from {{$note->user->batch}} </small></span> 
-                    </div>
+                    @endif
                   @endforeach
                 @endif
               </div>
@@ -48,13 +62,31 @@
           </div>
           <div class="col-md-6">
             <div class="card">
-              <div class="card-header card-header-info">
-                <h4 class="card-title">@if(Auth::user()->user_type == "faculty") Student Notes  @endif @if(Auth::user()->user_type == "student") Personal Notes <button class="btn btn-danger" data-toggle="modal" data-target="#addnote">Add new </button> @endif </h4>
+              <div class="card-header card-header-info row">
+                <h2 class="card-title col">My Notes </h2>
+                <button class="btn btn-danger col" data-toggle="modal" data-target="#addnote">  Add new </button>
               </div>
-              <div class="card-body">
-                <div class="alert alert-success">
-                  <span>This is a plain notification</span>
-                </div>
+              <div class="card-body" style="overflow: auto; ">
+                @if( count($notes)>0)
+                  @foreach($notes as $note)
+                    @if($note->user_id == Auth::id())
+                      <div @if(Auth::user()->id == $note->user_id) class="alert alert-primary" @else class="alert alert-success" @endif>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            Subject :{{$note->subject}}
+                          </div>
+                          <div class="col-sm-4">
+                            Description :{{$note->description}}
+                          </div>
+                          <div class="col-sm-2">
+                            <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
+                          </div>
+                        </div>
+                        
+                      </div>
+                    @endif
+                  @endforeach
+                @endif
               </div>
             </div>
           </div>

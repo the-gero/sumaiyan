@@ -14,10 +14,10 @@
 Route::get('/', function () {
     return redirect('/home');
 });
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::resource('/time-table','TimeTableController');
+Route::resource('/time-table','TimeTableController')->middleware('verified');
 Route::resource('/results','ResultsController');
 Route::resource('/notes','NotesController');
 Route::group(['middleware' => 'auth'], function () {
