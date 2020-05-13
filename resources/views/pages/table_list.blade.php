@@ -181,7 +181,7 @@
                     <div id="accordion" class="accordion">
                         <div class="card mb-0">
                             <div class="card-header collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseOne">
-                                <a class="card-title"> Computer Science TY </a>
+                                <h4 class="card-title"> Computer Science TY </h4>
                             </div>
                             <div id="collapseOne" class="collapse" data-parent="#accordion">
                               <div class="card-body">

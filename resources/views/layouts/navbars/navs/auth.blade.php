@@ -25,7 +25,7 @@
           <a class="nav-link" href="{{ route('home') }}">
             <i class="material-icons">dashboard</i>
             <p class="d-lg-none d-md-block">
-              {{ __('Stats') }}
+              {{ __('Dashboard') }}
             </p>
           </a>
         </li>
@@ -34,7 +34,7 @@
             <i class="material-icons">notifications</i>
             <span class="notification">5</span>
             <p class="d-lg-none d-md-block">
-              {{ __('Some Actions') }}
+              {{ __('Notifications') }}
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

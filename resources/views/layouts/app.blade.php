@@ -147,7 +147,7 @@
         <!-- Library for adding dinamically elements -->
         <script src="{{ asset('material') }}/js/plugins/arrive.min.js"></script>
         <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
+        {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9VgvfLlF4kVNzCC6HcumpnpeZsALS5JY&callback=initMap"></script> --}}
         <!-- Chartist JS -->
         <script src="{{ asset('material') }}/js/plugins/chartist.min.js"></script>
         <!--  Notifications Plugin    -->
@@ -178,55 +178,22 @@
               modal.find('.modal-body #ttsubject').attr("value",ttsubject);
               modal.find('.modal-body #ttfaculty').attr("value",ttfaculty);
               modal.find('.modal-body #ttdepartment').attr("value",ttdepartment);
-        })
-        $('#delete').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) 
-            var ttid = button.data('ttid') 
-            var modal = $(this)
-            $('#delform').attr("action","/time-table/"+ttid);
-            modal.find('.modal-body #ttdid').val(ttid);
-          })
-        $('#delete1').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) 
-            var rid = button.data('rid') 
-            var modal = $(this)
-            $('#delformR').attr("action","/results/"+rid);
-            modal.find('.modal-body #rid').val(rid);
-          })
-          
-
-  </script>
-  
-  {{-- <script type="text/javascript">
-    $(".from").datetimepicker({format: 'M-yyyy'});
-</script> --}} 
-  {{-- <script>
-    var startDate = new Date();
-    var fechaFin = new Date();
-    var FromEndDate = new Date();
-    var ToEndDate = new Date();
-    $('.from').datetimepicker({
-        autoclose: true,
-        minViewMode: 1,
-        format: 'mm/yyyy'
-    }).on('changeDate', function(selected){
-            startDate = new Date(selected.date.valueOf());
-            startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
-            $('.to').datepicker('setStartDate', startDate);
-        }); 
-
-    $('.to').datetimepicker({
-        autoclose: true,
-        minViewMode: 1,
-        format: 'mm/yyyy'
-    }).on('changeDate', function(selected){
-            FromEndDate = new Date(selected.date.valueOf());
-            FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
-            $('.from').datepicker('setEndDate', FromEndDate);
-        });
-
-  </script> --}}
-  
+            })
+            $('#delete').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) 
+              var ttid = button.data('ttid') 
+              var modal = $(this)
+              $('#delform').attr("action","/time-table/"+ttid);
+              modal.find('.modal-body #ttdid').val(ttid);
+            })
+            $('#delete1').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) 
+              var rid = button.data('rid') 
+              var modal = $(this)
+              $('#delformR').attr("action","/results/"+rid);
+              modal.find('.modal-body #rid').val(rid);
+            })
+        </script>
         @stack('js')
     </body>
 </html>

@@ -52,7 +52,7 @@
                           
                         </div>
                         <span class="justify-content-end  ">
-                          <small class="float-right">by {{$note->user->name}} from {{$note->user->batch}} </small></span> 
+                          <small class="float-right">by {{$note->user->name}}  @if($note->user->batch == "") from {{$note->user->department}} @else {{$note->user->batch}}  @endif </small></span> 
                       </div>
                     @endif
                   @endforeach
@@ -256,7 +256,7 @@
                   @endif
                 </div>
                 <div class="card-footer ml-auto mr-auto justify-content-center">
-                  <button type="submit" class="btn btn-primary ">{{ __('Add Result') }}</button>
+                  <button type="submit" class="btn btn-primary ">{{ __('Post Notes') }}</button>
                 </div>
               </form>
             </div>
