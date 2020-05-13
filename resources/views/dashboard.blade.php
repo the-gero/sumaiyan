@@ -30,7 +30,7 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Homeworks</p>
-              <h3 class="card-title">3 are remaining</h3>
+              <h3 class="card-title">3 Remaining</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -45,12 +45,12 @@
               <div class="card-icon">
                 <i class="material-icons">info_outline</i>
               </div>
-              <p class="card-category">Issues</p>
-              <h3 class="card-title">7</h3>
+              <p class="card-category">Undone Tasks</p>
+              <h3 class="card-title">7 Remaining</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
+                <i class="material-icons">local_offer</i>Your Personal tasks
               </div>
             </div>
           </div>
@@ -59,10 +59,10 @@
           <div class="card card-stats">
             <div class="card-header card-header-info card-header-icon">
               <div class="card-icon">
-                <i class="fa fa-twitter"></i>
+                <i class="fa fa-users"></i>
               </div>
-              <p class="card-category">Social</p>
-              <h3 class="card-title">+245</h3>
+              <p class="card-category">Defaulters</p>
+              <h3 class="card-title">+245 Undone Tasks</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -74,7 +74,7 @@
       </div>
       
       <div class="row">
-        <div class="col-lg-6 col-md-12">
+        <div @if(Auth::user()->user_type == "faculty") class="col-lg-6 col-md-12" @else class="col-lg-12 col-md-12" @endif >
           <div class="card">
             <div class="card-header card-header-tabs card-header-primary">
               <div class="nav-tabs-navigation">
@@ -192,59 +192,33 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="card">
-            <div class="card-header card-header-warning">
-              <h4 class="card-title">News</h4>
-              <p class="card-category">See whats new in your campus.</p>
-            </div>
-            <div class="card-body table-responsive" style="width: 100%; height: 300px; padding:10px;  padding-left:100px;  overflow: hidden; ">
-              {{-- <table class="table table-hover">
-                <thead class="text-warning">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Salary</th>
-                  <th>Country</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Dakota Rice</td>
-                    <td>$36,738</td>
-                    <td>Niger</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Minerva Hooper</td>
-                    <td>$23,789</td>
-                    <td>Curaçao</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Sage Rodriguez</td>
-                    <td>$56,142</td>
-                    <td>Netherlands</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Philip Chaney</td>
-                    <td>$38,735</td>
-                    <td>Korea, South</td>
-                  </tr>
-                </tbody>
-              </table> --}}
-              <iframe style="width: 100%; height: 350px; border: 1px solid black; -ms-zoom: 0.75;
-              -moz-transform: scale(0.75);
-              -moz-transform-origin: 0 0;
-              -o-transform: scale(0.75);
-              -o-transform-origin: 0 0;
-              -webkit-transform: scale(0.75);overflow: hidden;
-              -webkit-transform-origin: 0 0;" src="/storage/whatsnew.html" frameborder="0">
-              </iframe>
-              
+        @if(Auth::user()->user_type == "faculty")
+          <div class="col-lg-6 col-md-12">
+            <div class="card">
+              <div class="card-header card-header-warning">
+                <h4 class="card-title">News</h4>
+                <p class="card-category">See whats new in your campus.</p>
+              </div>
+              <div class="card-body table-responsive" >
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
+        @endif
       </div>
     </div>
   </div>

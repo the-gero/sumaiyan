@@ -32,6 +32,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Notes');
     }
 
+    public function tasknote(){
+        return $this->hasMany('App\TasknNote');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
