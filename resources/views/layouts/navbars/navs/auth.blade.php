@@ -11,17 +11,17 @@
     <span class="navbar-toggler-icon icon-bar"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end">
-      <form class="navbar-form">
+      <form class=" navbar-form">
         <div class="input-group no-border">
-        <input type="text" value="" class="form-control" placeholder="Search...">
-        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+        <input type="text" value="" class="form-control justify-content-center" placeholder="Search...">
+        <button type="submit" class="btn btn-white btn-just-icon">
           <i class="material-icons">search</i>
           <div class="ripple-container"></div>
         </button>
         </div>
       </form>
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item card">
           <a class="nav-link" href="{{ route('home') }}">
             <i class="material-icons">dashboard</i>
             <p class="d-lg-none d-md-block">
@@ -29,26 +29,49 @@
             </p>
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown card"  >
+          <a class="nav-link " href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="material-icons">notifications</i>
-            <span class="notification">5</span>
+            @php
+              $notifcount=0;
+              foreach (Auth::user()->tasknote as $notif) 
+              {
+                if ($notif->read == "undone") 
+                {
+                  $notifcount=$notifcount+1;
+                }
+              }
+            @endphp
+            <span class="notification">{{$notifcount}}</span>
             <p class="d-lg-none d-md-block">
               {{ __('Notifications') }}
             </p>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">{{ __('Mike John responded to your email') }}</a>
-            <a class="dropdown-item" href="#">{{ __('You have 5 new tasks') }}</a>
-            <a class="dropdown-item" href="#">{{ __('You\'re now friend with Andrew') }}</a>
-            <a class="dropdown-item" href="#">{{ __('Another Notification') }}</a>
-            <a class="dropdown-item" href="#">{{ __('Another One') }}</a>
+          <div class="dropdown-menu dropdown-menu-right card-body" style="width: 400px" aria-labelledby="navbarDropdownMenuLink">
+              <h4 class="dropdown-item  card-header card-header-info" style="font-size: 22px"> Notifications</h4>  
+              <br>
+              
+            @if($notifcount > 0)  
+              @foreach(Auth::user()->tasknote as $notif)
+                @if($notif->read == "undone" && $notif->type == "Notice")  
+                  <a class="dropdown-item  card-header card-header-warning"  href="/home"style="text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
+                @endif
+                @if($notif->read == "undone" && $notif->type == "HomeWork")  
+                  <a class="dropdown-item  card-header card-header-danger"  href="/home"style="text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
+                @endif
+                <br>
+              @endforeach
+            @else
+            <a class="dropdown-item  card-header card-header-info"  href="/home"style="text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;"> Ahha! No notifications! ! !</a>
+            @endif
+            
           </div>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="material-icons">person</i>
-            <p class="d-lg-none d-md-block">
+        
+        <li class="nav-item dropdown card ">
+          <a class="nav-link " href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons ">person</i>
+            <p class="d-lg-none d-md-block ">
               {{ __('Account') }}
             </p>
           </a>

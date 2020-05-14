@@ -107,7 +107,9 @@
                     <li class="nav-item">
                       <a class="nav-link active" href="#homework" data-toggle="tab">
                         <i class="material-icons">home_work</i> Home Work
-                        <div class="ripple-container"></div>
+                        
+                        <div class="ripple-container">
+                        </div>
                       </a>
                     </li>
                     <li class="nav-item">
@@ -140,7 +142,7 @@
                     <tbody>
                       @if(count($tasknotes)>0)
                         @foreach ($tasknotes as $tasknote)
-                          @if($tasknote->type = "HomeWork")
+                          @if($tasknote->type == "HomeWork")
                             <tr class="card-header card-header-info">
                               <td class="text-center">
                                 <div class="form-check">

@@ -31,7 +31,7 @@ class TaskNotifController extends Controller
      */
     public function create()
     {
-        //
+        return "".Auth::user()->tasknote;
     }
 
     /**
@@ -65,7 +65,7 @@ class TaskNotifController extends Controller
                     $tasknote->department = $request->department;
                     $tasknote->batch = $request->batch;
                     $tasknote->subject = $request->subject;
-                    $tasknote->read = 'undone';
+                    $tasknote->read = 'done';
                     $tasknote->description = $request->description;
                     $tasknote->type= $request->type;
                     $tasknote->save();
