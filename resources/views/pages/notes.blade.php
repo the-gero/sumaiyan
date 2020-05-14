@@ -2,6 +2,30 @@
 
 @section('content')
 <div class="content">
+        @if (session('status'))
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="material-icons">close</i>
+                </button>
+                <span>{{ session('status') }}</span>
+              </div>
+            </div>
+          </div>
+        @endif
+        @if (session('error'))
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="material-icons">close</i>
+                </button>
+                <span>{{ session('error') }}</span>
+              </div>
+            </div>
+          </div>
+        @endif
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">

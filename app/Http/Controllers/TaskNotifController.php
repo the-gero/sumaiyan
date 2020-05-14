@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use App\User;
+use App\TasknNote;
 class TaskNotifController extends Controller
 {
     /**
@@ -11,9 +13,15 @@ class TaskNotifController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $tasknotes = TasknNote::where('user_id',Auth::id())->get();
+        return view('dashboard')->with('tasknotes',$tasknotes);
     }
 
     /**
@@ -34,7 +42,60 @@ class TaskNotifController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->type == "Notice" || $request->type == "HomeWork" || $request->type == "Reminder") 
+        {
+            if(Auth::user()->user_type == "faculty")
+            {
+                if($request->type == "Notice" || $request->type == "HomeWork" )
+                {
+                    $newuniqueid = 0 ;
+                    $previous = TasknNote::orderBy('created_at','desc')->first();
+                    if(empty($previous))
+                    {
+                        $newuniqueid=1;
+                    }
+                    else
+                    {
+
+                        $newuniqueid=$previous->uniqueid+1;
+                    }
+                    $tasknote= new TasknNote;
+                    $tasknote->user_id = Auth::id();
+                    $tasknote->uniqueid = $newuniqueid;
+                    $tasknote->department = $request->department;
+                    $tasknote->batch = $request->batch;
+                    $tasknote->subject = $request->subject;
+                    $tasknote->read = 'undone';
+                    $tasknote->description = $request->description;
+                    $tasknote->type= $request->type;
+                    $tasknote->save();
+                    
+                    $users = User::where('department',$request->department)->where('batch',$request->batch)->get();
+                    foreach ($users as $user ) 
+                    {
+                        $tasknote= new TasknNote;
+                        $tasknote->user_id = $user->id;
+                        $tasknote->uniqueid = $newuniqueid;
+                        $tasknote->department = $request->department;
+                        $tasknote->batch = $request->batch;
+                        $tasknote->subject = $request->subject;
+                        $tasknote->read = 'undone';
+                        $tasknote->description = $request->description;
+                        $tasknote->type= $request->type;
+                        $tasknote->save();
+                    }
+                    return redirect('/home')->withStatus($request->type.' Posted.');
+                }
+                
+            }
+            else {
+                return "Not Allowed";
+            }
+        }
+        else 
+        {
+            return $request;    
+        }
     }
 
     /**

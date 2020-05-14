@@ -16,10 +16,11 @@ Route::get('/', function () {
 });
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'TaskNotifController@index')->name('home')->middleware('verified');
 Route::resource('/time-table','TimeTableController')->middleware('verified');
 Route::resource('/results','ResultsController');
 Route::resource('/notes','NotesController');
+Route::resource('/tasknote','TaskNotifController');
 Route::group(['middleware' => 'auth'], function () {
 	/* Route::get('table-list', function () {
 		return view('pages.table_list');

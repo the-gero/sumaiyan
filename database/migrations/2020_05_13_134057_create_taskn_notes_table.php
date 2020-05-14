@@ -16,11 +16,13 @@ class CreateTasknNotesTable extends Migration
         Schema::create('taskn_notes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('uniqueid');
             $table->string('department');
             $table->string('batch');
             $table->string('read');
+            $table->string('subject')->nullable()->default('none');
             $table->mediumText('description');
-            $table->string('type');//privacy
+            $table->string('type');
             $table->timestamps();
         });
     }
