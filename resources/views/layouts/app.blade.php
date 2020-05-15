@@ -193,6 +193,15 @@
               $('#delformR').attr("action","/results/"+rid);
               modal.find('.modal-body #rid').val(rid);
             })
+            $('#ndelete').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) 
+              var nid = button.data('nid') 
+              var type = button.data('type') 
+              var modal = $(this)
+              $('#delformnote').attr("action","/tasknote/"+nid);
+              modal.find('.modal-body #nid').val(nid);
+              modal.find('.modal-body #type').val(type);
+            })
         </script>
         @stack('js')
     </body>

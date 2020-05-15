@@ -62,7 +62,7 @@
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Used Space</p>
-              <h3 class="card-title">0.49 of 1
+              <h3 class="card-title">{{$size}} of 1
                 GB
               </h3>
             </div>
@@ -81,7 +81,7 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Homeworks</p>
-            <h3 class="card-title">@if(Auth::user()->user_type == "faculty") {{ $counthw }}given @endif {{ $counthw }} Remaining</h3>
+            <h3 class="card-title">@if(Auth::user()->user_type == "faculty") {{ $counthw }} <br> Given @endif @if(Auth::user()->user_type == "student"){{ $counthw }} Remaining @endif </h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -112,8 +112,8 @@
               <div class="card-icon">
                 <i class="fa fa-users"></i>
               </div>
-              <p class="card-category">@if(Auth::user()->user_type == "faculty") Defaulters @else Remaining Task @endif </p>
-            <h3 class="card-title">@if(Auth::user()->user_type == "faculty"){{count($undonehws)}} Defaulters @endif {{$countnotif}}</h3>
+              <p class="card-category">@if(Auth::user()->user_type == "faculty") Defaulters @else Unread Notices @endif </p>
+            <h3 class="card-title">@if(Auth::user()->user_type == "faculty"){{count($undonehws)}} Defaulters @endif @if(Auth::user()->user_type == "student"){{$countnotif}} Remaining @endif</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -197,7 +197,7 @@
                                     <button type="button" rel="tooltip" title="Edit Homework" class="btn btn-primary btn-link btn-sm " data-toggle="modal" data-target= "#newedit">
                                       <i class="material-icons">edit</i>
                                     </button>
-                                    <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
+                                    <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
                                       <i class="material-icons">close</i>
                                     </button>
                                 </td>
@@ -247,7 +247,7 @@
                                   <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
                                     <i class="material-icons">edit</i>
                                   </button>
-                                  <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#ndelete">
+                                  <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete">
                                     <i class="material-icons">close</i>
                                   </button>
                                 </td>
@@ -307,7 +307,7 @@
                                   <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
                                     <i class="material-icons">edit</i>
                                   </button>
-                                  <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
+                                  <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
                                     <i class="material-icons">close</i>
                                   </button>
                                 </td>
@@ -366,12 +366,12 @@
                             </td>
                             @if(Auth::user()->user_type == "faculty")
                               <td class="td-actions justify-content-center">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
-                                  <i class="material-icons">edit</i>
+                                <button type="button" rel="tooltip" title="Send Reminder" class="btn btn-warning btn-link btn-sm" data-toggle="modal" data-target="#newedit">
+                                  <i class="material-icons">autorenew</i>
                                 </button>
-                                <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
+                                {{-- <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
                                   <i class="material-icons">close</i>
-                                </button>
+                                </button> --}}
                               </td>
                             @endif
                           </tr>
@@ -566,11 +566,21 @@
           </button>
         </div>
         <div class="modal-body">
-          Delete this note ?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <form action="#" id="delformnote" method="post">
+            {{method_field('delete')}}
+            @csrf
+          <div class="modal-body">
+          <p class="text-center">
+            Are you sure you want to delete this result?
+          </p>
+              <input type="hidden" name="nid" id="nid"  value="">
+              <input type="hidden" name="type" id="type"  value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
+            <button type="submit" class="btn btn-warning">Yes, Delete</button>
+          </div>
+        </form>
         </div>
       </div>
     </div>
