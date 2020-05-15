@@ -20,7 +20,13 @@ class TaskNotifController extends Controller
 
     public function index()
     {
-        $tasknotes = TasknNote::where('user_id',Auth::id())->get();
+        $tasknotes = TasknNote::where('user_id',Auth::id())->orderBy("updated_at","asc")->get();
+        
+        if (Auth::user()->user_type == "faculty") 
+        {
+            $undonehws = TasknNote::where('read',"undone")->where('type',"homework")->where("department",Auth::user()->department)->orderBy("updated_at","asc")->get();
+            return view('dashboard')->with('tasknotes',$tasknotes)->with('undonehws',$undonehws);
+        }
         return view('dashboard')->with('tasknotes',$tasknotes);
     }
 
@@ -94,7 +100,27 @@ class TaskNotifController extends Controller
         }
         else 
         {
-            return $request;    
+            $newuniqueid = 0 ;
+            $previous = TasknNote::orderBy('created_at','desc')->first();
+            if(empty($previous))
+            {
+                $newuniqueid=1;
+            }
+            else
+            {
+                $newuniqueid=$previous->uniqueid+1;
+            }
+            $tasknote= new TasknNote;
+            $tasknote->user_id = Auth::id();
+            $tasknote->uniqueid = $newuniqueid;
+            $tasknote->department = Auth::user()->department;
+            $tasknote->batch = Auth::user()->batch;
+            $tasknote->subject = $request->subject;
+            $tasknote->read = 'undone';
+            $tasknote->description = $request->description;
+            $tasknote->type= $request->type;
+            $tasknote->save();
+            return redirect('/home')->withStatus($request->type.' Added.');                   
         }
     }
 
@@ -129,7 +155,7 @@ class TaskNotifController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

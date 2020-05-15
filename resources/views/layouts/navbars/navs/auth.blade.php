@@ -47,22 +47,24 @@
               {{ __('Notifications') }}
             </p>
           </a>
-          <div class="dropdown-menu dropdown-menu-right card-body" style="width: 400px" aria-labelledby="navbarDropdownMenuLink">
-              <h4 class="dropdown-item  card-header card-header-info" style="font-size: 22px"> Notifications</h4>  
-              <br>
+          <div class="dropdown-menu dropdown-menu-right card-body ps-scrollbar-y-rail" style="width:400px; height:300px ; overflow-y:auto " aria-labelledby="navbarDropdownMenuLink">
+              <h4 class="dropdown-item d-lg-block d-md-none  card-header card-header-info ps-scrollbar-y" style="margin-top :10px ;font-size: 22px"> Notifications</h4>  
               
             @if($notifcount > 0)  
               @foreach(Auth::user()->tasknote as $notif)
                 @if($notif->read == "undone" && $notif->type == "Notice")  
-                  <a class="dropdown-item  card-header card-header-warning"  href="/home"style="text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
+                  <a class="dropdown-item  card-header card-header-warning"  href="/home"style="margin-top:10px; text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
                 @endif
                 @if($notif->read == "undone" && $notif->type == "HomeWork")  
-                  <a class="dropdown-item  card-header card-header-danger"  href="/home"style="text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
+                  <a class="dropdown-item  card-header card-header-danger"  href="/home"style="margin-top:10px; text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
                 @endif
-                <br>
+                @if($notif->read == "undone" && $notif->type == "Task")  
+                  <a class="dropdown-item  card-header card-header-success"  href="/home"style="margin-top:10px; text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;">  New {{$notif->type}} : {{$notif->description}} </a>
+                @endif
+                
               @endforeach
             @else
-            <a class="dropdown-item  card-header card-header-info"  href="/home"style="text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;"> Ahha! No notifications! ! !</a>
+            <a class="dropdown-item  card-header card-header-info"  href="/home"style="margin-top:10px; text-overflow:ellipsis; width: 300px; white-space: nowrap; overflow: hidden; word-wrap: break-word; display:block;white-space: initial;"> Ahha! No notifications! ! !</a>
             @endif
             
           </div>

@@ -1,6 +1,33 @@
 @extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Dashboard')])
 
 @section('content')
+  @php
+    $counthw =0;
+    $counttask =0;
+    $countnotif =0;
+  @endphp
+  @if(count($tasknotes)>0)
+    @foreach ($tasknotes as $tasknote)
+      @php  
+      
+      @endphp
+      @if($tasknote->type == "HomeWork")
+        @php
+          $counthw++;
+        @endphp
+      @endif
+      @if($tasknote->type == "Task")
+        @php
+          $counttask++;
+        @endphp
+      @endif
+      @if($tasknote->type == "Notice")
+        @php
+          $countnotif++;
+        @endphp
+      @endif
+    @endforeach
+  @endif
   <div class="content">
         @if (session('status'))
           <div class="row">
@@ -54,7 +81,7 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Homeworks</p>
-              <h3 class="card-title">3 Remaining</h3>
+            <h3 class="card-title">@if(Auth::user()->user_type == "faculty") {{ $counthw }}given @endif {{ $counthw }} Remaining</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -70,7 +97,7 @@
                 <i class="material-icons">info_outline</i>
               </div>
               <p class="card-category">Undone Tasks</p>
-              <h3 class="card-title">7 Remaining</h3>
+              <h3 class="card-title">{{$counttask}} Remaining</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -85,8 +112,8 @@
               <div class="card-icon">
                 <i class="fa fa-users"></i>
               </div>
-              <p class="card-category">Defaulters</p>
-              <h3 class="card-title">+245 Undone Tasks</h3>
+              <p class="card-category">@if(Auth::user()->user_type == "faculty") Defaulters @else Remaining Task @endif </p>
+            <h3 class="card-title">@if(Auth::user()->user_type == "faculty"){{count($undonehws)}} Defaulters @endif {{$countnotif}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -140,14 +167,21 @@
                 <div class="tab-pane active" id="homework">
                   <table class="table">
                     <tbody>
+                      @php
+                        $flag1 = 0;
+                      @endphp
                       @if(count($tasknotes)>0)
                         @foreach ($tasknotes as $tasknote)
+                          @php  @endphp
                           @if($tasknote->type == "HomeWork")
+                            @php
+                              $flag1 = 1;$counthw++;
+                            @endphp
                             <tr class="card-header card-header-info">
                               <td class="text-center">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                    <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
@@ -163,7 +197,7 @@
                                     <button type="button" rel="tooltip" title="Edit Homework" class="btn btn-primary btn-link btn-sm " data-toggle="modal" data-target= "#newedit">
                                       <i class="material-icons">edit</i>
                                     </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                                    <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
                                       <i class="material-icons">close</i>
                                     </button>
                                 </td>
@@ -171,33 +205,35 @@
                             </tr>
                           @endif
                         @endforeach
-                      @else
-                          <tr>
-                            <td>
-                              Yay no Homeworks!
-                            </td>
-                          </tr>
                       @endif
+                      @if($flag1 == 0)
+                        <tr>
+                          <td>
+                            Yay no Homeworks!
+                          </td>
+                        </tr>
+                      @endif  
                     </tbody>
                   </table>
                 </div>
                 <div class="tab-pane" id="notice">
                   <table class="table">
                     <tbody>
+                      @php
+                        $flag2 = 0 ;
+                      @endphp
                       @if(count($tasknotes)>0)
+                        
                         @foreach ($tasknotes as $tasknote)
-                          @php
-                              $flag = 0 ;
-                          @endphp
                           @if($tasknote->type == "Notice")
                             @php
-                              $flag = 1 ;
+                              $flag2 = 1 ;
                             @endphp
                             <tr class="card-header card-header-warning">
                               <td class="text-center">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                    <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
@@ -211,7 +247,7 @@
                                   <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
                                     <i class="material-icons">edit</i>
                                   </button>
-                                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                                  <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#ndelete">
                                     <i class="material-icons">close</i>
                                   </button>
                                 </td>
@@ -219,8 +255,9 @@
                             </tr>
                           @endif
                         @endforeach
+                        
                       @endif
-                      @if($flag == 0)
+                      @if($flag2 == 0)
                         <tr>
                           <td>
                             No Notices yet.
@@ -242,27 +279,50 @@
                       </thead>
                     @endif
                     <tbody>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
-                            <i class="material-icons">edit</i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                          </button>
-                        </td>
-                      </tr>
+                      @php
+                        $flag3 = 0 ;
+                      @endphp
+                      @if(count($tasknotes)>0)
+                        
+                        @foreach ($tasknotes as $tasknote)
+                          
+                          @if($tasknote->type == "Task")
+                            @php
+                              $flag3 = 1 ;
+                            @endphp
+                            <tr class="card-header card-header-warning">
+                              <td class="text-center">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                  </label>
+                                </div>
+                              </td>
+                              <td class="text-left">{{$tasknote->description}}
+                              </td>
+                                <td class="td-actions justify-content-center">
+                                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
+                                    <i class="material-icons">edit</i>
+                                  </button>
+                                  <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
+                                    <i class="material-icons">close</i>
+                                  </button>
+                                </td>
+                            </tr>
+                          @endif
+                        @endforeach
+                        
+                      @endif
+                      @if($flag3 == 0)
+                          <tr>
+                            <td>
+                              All done
+                            </td>
+                          </tr>
+                      @endif
                     </tbody>
                   </table>
                 </div>
@@ -274,23 +334,58 @@
           <div class="col-lg-6 col-md-12">
             <div class="card">
               <div class="card-header card-header-warning">
-                <h4 class="card-title">News</h4>
-                <p class="card-category">See whats new in your campus.</p>
+                <h4 class="card-title">Defaulters</h4>
+                <p class="card-category">See who has not done their homwork.</p>
               </div>
               <div class="card-body table-responsive" >
                 <table class="table">
                   <tbody>
-                    <tr>
-                      <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                      <td class="td-actions text-right">
-                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
-                          <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                          <i class="material-icons">close</i>
-                        </button>
-                      </td>
-                    </tr>
+                    @php
+                      $flag4 = 0 ;
+                    @endphp
+                    @if(count($undonehws)>0)
+                      
+                      @foreach ($undonehws as $tasknote)
+                        
+                        @if($tasknote->type == "HomeWork")
+                          @php
+                            $flag4 = 1 ;
+                          @endphp
+                          <tr class="card-header card-header-success">
+                            <td class="text-center">
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
+                                  <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                </label>
+                              </div>
+                            </td>
+                            <td class="text-left">{{$tasknote->user->name}} has not done <u><b>{{$tasknote->subject}}</b></u> homework.
+                            </td>
+                            @if(Auth::user()->user_type == "faculty")
+                              <td class="td-actions justify-content-center">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                                </button>
+                              </td>
+                            @endif
+                          </tr>
+                        @endif
+                      @endforeach
+                      
+                    @endif
+                    @if($flag4 == 0)
+                        <tr>
+                          <td>
+                            No Defaulters
+                          </td>
+                        </tr>
+                    @endif
                   </tbody>
                 </table>
               </div>
@@ -317,47 +412,48 @@
                   @csrf
                   {{-- <input type="hidden" name="uniqueid" id="uniqueid" value=""> --}}
                   @if(Auth::user()->user_type == "faculty")
-                  <div class="row  bmd-form-group{{ $errors->has('department') ? ' has-danger' : '' }} mt-3">
-                    <div class="input-group">
-                      <div class="input-group-prepend col-sm-3 col-form-label">
-                        <span class="input-group-text ">
-                          <i class="material-icons">account_balance</i>
-                        </span>
-                      </div>
-                        <input class="btn dropdown-toggle col-md-6" type="text" readonly name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
-                        <div class="dropdown-menu" aria-labelledby="department">
-                          <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
-                          <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                    <div id="deptv" class="row  bmd-form-group{{ $errors->has('department') ? ' has-danger' : '' }} mt-3">
+                      <div class="input-group">
+                        <div class="input-group-prepend col-sm-3 col-form-label">
+                          <span class="input-group-text ">
+                            <i class="material-icons">account_balance</i>
+                          </span>
                         </div>
+                          <input class="btn dropdown-toggle col-md-6" type="text" readonly name="department" id="department" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                          <div class="dropdown-menu" aria-labelledby="department">
+                            <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Computer Science');" >Computer Science</a>
+                            <a class="dropdown-item" onclick="document.getElementById('department').setAttribute('value','Information Technology');" >Information Technology</a>
+                          </div>
+                        
+                      </div>
+                      @if ($errors->has('department'))
+                        <div id="department-error" class="error text-danger pl-3" for="department" style="display: block;">
+                        <strong>{{ $errors->first('department') }}</strong>
+                        </div>
+                      @endif
+                    </div>
+                    <div id="batchv" class="row bmd-form-group{{ $errors->has('batch') ? ' has-danger' : '' }} mt-3">
+                      <div class="input-group">
+                        <div class="input-group-prepend col-sm-3 col-form-label">
+                          <span class="input-group-text">
+                            <i class="material-icons">class</i>
+                          </span>
+                        </div>
+                          <input class="btn dropdown-toggle col-md-6" type="text" readonly name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                          <div class="dropdown-menu" aria-labelledby="batch">
+                            <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
+                            <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
+                            <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                          </div>
+                      </div>
                       
-                    </div>
-                    @if ($errors->has('department'))
-                      <div id="department-error" class="error text-danger pl-3" for="department" style="display: block;">
-                      <strong>{{ $errors->first('department') }}</strong>
-                      </div>
-                    @endif
-                  </div>
-                  <div class="row bmd-form-group{{ $errors->has('batch') ? ' has-danger' : '' }} mt-3">
-                    <div class="input-group">
-                      <div class="input-group-prepend col-sm-3 col-form-label">
-                        <span class="input-group-text">
-                          <i class="material-icons">class</i>
-                        </span>
-                      </div>
-                        <input class="btn dropdown-toggle col-md-6" type="text" readonly name="batch" id="batch" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
-                        <div class="dropdown-menu" aria-labelledby="batch">
-                          <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','First Year');" >First Year</a>
-                          <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Second Year');" >Second Year</a>
-                          <a class="dropdown-item" onclick="document.getElementById('batch').setAttribute('value','Third Year');">Third Year</a>
+                      @if ($errors->has('batch'))
+                        <div id="batch-error" class="error text-danger pl-3" for="batch" style="display: block;">
+                        <strong>{{ $errors->first('batch') }}</strong>
                         </div>
+                      @endif
                     </div>
-                    
-                    @if ($errors->has('batch'))
-                      <div id="batch-error" class="error text-danger pl-3" for="batch" style="display: block;">
-                      <strong>{{ $errors->first('batch') }}</strong>
-                      </div>
-                    @endif
-                  </div>
+                  @endif
                   <div class="row bmd-form-group{{ $errors->has('subject') ? ' has-danger' : '' }} mt-3">
                     <div class="input-group">
                       <div class="input-group-prepend col-sm-3 col-form-label">
@@ -365,16 +461,14 @@
                           <i class="material-icons">subject</i>
                         </span>
                       </div>
-                        <input class="btn col-md-6 from"  type="text"  name="subject" id="subject" placeholder="{{ __('subject...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                      <input class="btn col-md-6 from"  type="text" style=" text-transform: none;" name="subject" id="subject" placeholder="{{ __('Subject...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
                     </div>
-                    
                     @if ($errors->has('subject'))
                       <div id="subject-error" class="error text-danger pl-3 "  style="display: block;">
-                      <strong>{{ $errors->first('subject') }}</strong>
+                        <strong>{{ $errors->first('subject') }}</strong>
                       </div>
                     @endif
                   </div>
-                  @endif
                   <div class="row bmd-form-group{{ $errors->has('description') ? ' has-danger' : '' }} mt-3">
                     <div class="input-group">
                       <div class="input-group-prepend col-sm-3 col-form-label">
@@ -382,7 +476,7 @@
                           <i class="material-icons">description</i>
                         </span>
                       </div>
-                        <textarea class="btn text-left col-md-6" cols="100" rows="10" type="textarea"  name="description" id="description" placeholder="{{ __('Description...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  ></textarea>
+                        <textarea class="btn text-left col-md-6" cols="100" style=" text-transform: none;" rows="10" type="textarea"  name="description" id="description" placeholder="{{ __('Description...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  ></textarea>
                     </div>
                     
                     @if ($errors->has('description'))
@@ -401,10 +495,10 @@
                         <input class="btn dropdown-toggle col-md-6" type="button" readonly name="typeshow" id="typeshow" value="{{ __('Type...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
                         <div class="dropdown-menu" aria-labelledby="type">
                           @if(Auth::user()->user_type == "faculty")
-                            <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','HomeWork');document.getElementById('typeshow').setAttribute('value','HomeWork');" >HomeWork</a>
-                            <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Notice');document.getElementById('typeshow').setAttribute('value','Notice');" >Notice</a>
+                            <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','HomeWork');document.getElementById('typeshow').setAttribute('value','HomeWork');document.getElementById('department').disabled=false;document.getElementById('deptv').setAttribute('style','display:block;');document.getElementById('batch').disabled=false;document.getElementById('batchv').setAttribute('style','display:block;');" >HomeWork</a>
+                            <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Notice');document.getElementById('typeshow').setAttribute('value','Notice');document.getElementById('department').disabled=false;document.getElementById('deptv').setAttribute('style','display:block;');document.getElementById('batch').disabled=false;document.getElementById('batchv').setAttribute('style','display:block;');" >Notice</a>
                           @endif
-                          <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Task');document.getElementById('typeshow').setAttribute('value','Task');" >Task</a>
+                          <a class="dropdown-item" onclick="document.getElementById('type').setAttribute('value','Task');document.getElementById('typeshow').setAttribute('value','Task');document.getElementById('department').setAttribute('disabled','true');document.getElementById('deptv').setAttribute('style','display:none;');document.getElementById('batch').setAttribute('disabled','true');document.getElementById('batchv').setAttribute('style','display:none;');" >Task</a>
                         </div>
                         <input type="text" name="type" id="type" hidden>
                     </div>
@@ -418,7 +512,7 @@
           </div>
           
           <div class="modal-footer justify-content-center">
-              <button type="submit" class="btn btn-warning">Save changes</button>
+            <button type="submit" class="btn btn-warning">Save changes</button>
           </div>
         </div>
       </form>
@@ -472,7 +566,7 @@
           </button>
         </div>
         <div class="modal-body">
-          Delete
+          Delete this note ?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
