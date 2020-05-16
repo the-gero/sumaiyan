@@ -168,7 +168,25 @@ class TaskNotifController extends Controller
      */
     public function edit($id)
     {
-        //
+        //For mark as done
+        $tasknote = TasknNote::where("uniqueid",$id)->first();
+        if($tasknote->user_id == Auth::id())
+        {
+            if($tasknote->read == "undone")
+            {
+                $tasknote->read = 'done';
+                $tasknote->save();
+                return redirect('/home')->withStatus($tasknote->type . ' marked as done.');
+            }
+            if($tasknote->read == "done")
+            {
+                $tasknote->read = 'undone';
+                $tasknote->save();
+                return redirect('/home')->withStatus($tasknote->type . ' marked as undone.');
+            }
+                
+        }
+            
     }
 
     /**
@@ -180,6 +198,57 @@ class TaskNotifController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->type == "Notice" || $request->type == "HomeWork" || $request->type == "Reminder") {
+            if (Auth::user()->user_type == "faculty") {
+                if ($request->type == "Notice" || $request->type == "HomeWork") {
+                    $tasknote = TasknNote::where("user_id",Auth::id())->where("uniqueid",$id)->first();
+                    $tasknote->user_id = Auth::id();
+                    $tasknote->department = $request->department;
+                    $tasknote->batch = $request->batch;
+                    $tasknote->subject = $request->subject;
+                    $tasknote->read = 'done';
+                    $tasknote->description = $request->description;
+                    $tasknote->type = $request->type;
+                    $tasknote->save();
+                    $previous = TasknNote::where("uniqueid",$id)->get();
+                    foreach($previous as $prev)
+                    {
+                        if($prev->user_id != Auth::id())
+                        {
+                            $prev->delete();
+                        }
+                    }
+                    $users = User::where('department', $request->department)->where('batch', $request->batch)->get();
+                    foreach ($users as $user) {
+                        $tasknote = new TasknNote;
+                        $tasknote->user_id = $user->id;
+                        $tasknote->uniqueid = $id;
+                        $tasknote->department = $request->department;
+                        $tasknote->batch = $request->batch;
+                        $tasknote->subject = $request->subject;
+                        $tasknote->read = 'undone';
+                        $tasknote->description = $request->description;
+                        $tasknote->type = $request->type;
+                        $tasknote->save();
+                    }
+                    return redirect('/home')->withStatus($request->type . ' Updated.');
+                }
+            } else {
+                return "Not Allowed";
+            }
+        } else {
+            
+            $tasknote = TasknNote::where("user_id",Auth::id())->where("uniqueid",$id)->first();
+            $tasknote->user_id = Auth::id();
+            $tasknote->department = Auth::user()->department;
+            $tasknote->batch = Auth::user()->batch;
+            $tasknote->subject = $request->subject;
+            $tasknote->read = 'undone';
+            $tasknote->description = $request->description;
+            $tasknote->type = $request->type;
+            $tasknote->save();
+            return redirect('/home')->withStatus($request->type . ' Updated.');
+        }
     }
 
     /**

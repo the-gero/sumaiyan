@@ -179,6 +179,25 @@
               modal.find('.modal-body #ttfaculty').attr("value",ttfaculty);
               modal.find('.modal-body #ttdepartment').attr("value",ttdepartment);
             })
+            $('#newedit').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) 
+              var uniqueid = button.data('uniqueid') 
+              var department = button.data('department') 
+              var batch = button.data('batch') 
+              var description = button.data('description') 
+              var subject = button.data('subject') 
+              var type = button.data('type') 
+              var read = button.data('read') 
+              var modal = $(this)
+              $('#noteeditform').attr("action","/tasknote/"+uniqueid);
+              //modal.find('.modal-body #read').attr("value",read);
+              modal.find('.card-body #departmente').attr("value",department);
+              modal.find('.card-body #batche').attr("value",batch);
+              modal.find('.card-body #typee').attr("value",type);
+              modal.find('.card-body #subjecte').attr("value",subject);
+              modal.find('.card-body #descriptione').val(description);
+              modal.find('.card-body #typeshowe').val(type);
+            })
             $('#delete').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget) 
               var ttid = button.data('ttid') 

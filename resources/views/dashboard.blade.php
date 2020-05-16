@@ -181,7 +181,7 @@
                               <td class="text-center">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
+                                    <input class="form-check-input" type="checkbox"  onclick="location.href='/tasknote/{{$tasknote->uniqueid}}/edit';" value="" @if($tasknote->read=="done")checked @endif>
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
@@ -194,10 +194,10 @@
                               <td class="text-center">{{$tasknote->description}}</td>
                               @if(Auth::user()->user_type == "faculty")
                                 <td class="td-actions justify-content-center">
-                                    <button type="button" rel="tooltip" title="Edit Homework" class="btn btn-primary btn-link btn-sm " data-toggle="modal" data-target= "#newedit">
+                                    <button type="button" rel="tooltip" title="Edit Homework" class="btn btn-primary btn-link btn-sm " data-toggle="modal" data-target= "#newedit" data-uniqueid="{{$tasknote->uniqueid}}" data-description="{{$tasknote->description}}" data-batch="{{$tasknote->batch}}" data-department="{{$tasknote->department}}" data-subject="{{$tasknote->subject}}" data-read="{{$tasknote->read}}" data-type="{{$tasknote->type}}" data-description="{{$tasknote->description}}" >
                                       <i class="material-icons">edit</i>
                                     </button>
-                                    <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
+                                    <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" data-toggle="modal" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
                                       <i class="material-icons">close</i>
                                     </button>
                                 </td>
@@ -233,7 +233,7 @@
                               <td class="text-center">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
+                                    <input class="form-check-input" type="checkbox" onclick="location.href='/tasknote/{{$tasknote->uniqueid}}/edit';" value="" @if($tasknote->read=="done")checked @endif>
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
@@ -244,7 +244,7 @@
                               </td>
                               @if(Auth::user()->user_type == "faculty")
                                 <td class="td-actions justify-content-center">
-                                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
+                                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit" data-uniqueid="{{$tasknote->uniqueid}}" data-description="{{$tasknote->description}}" data-batch="{{$tasknote->batch}}" data-department="{{$tasknote->department}}" data-subject="{{$tasknote->subject}}" data-read="{{$tasknote->read}}" data-type="{{$tasknote->type}}" data-description="{{$tasknote->description}}" >
                                     <i class="material-icons">edit</i>
                                   </button>
                                   <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete">
@@ -294,7 +294,7 @@
                               <td class="text-center">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
+                                    <input class="form-check-input" type="checkbox" onclick="location.href='/tasknote/{{$tasknote->uniqueid}}/edit';" value="" @if($tasknote->read=="done")checked @endif>
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
@@ -304,7 +304,7 @@
                               <td class="text-left">{{$tasknote->description}}
                               </td>
                                 <td class="td-actions justify-content-center">
-                                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit">
+                                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#newedit" data-uniqueid="{{$tasknote->uniqueid}}" data-description="{{$tasknote->description}}" data-batch="{{$tasknote->batch}}" data-department="{{$tasknote->department}}" data-subject="{{$tasknote->subject}}" data-read="{{$tasknote->read}}" data-type="{{$tasknote->type}}" data-description="{{$tasknote->description}}" >
                                     <i class="material-icons">edit</i>
                                   </button>
                                   <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
@@ -353,20 +353,20 @@
                           @endphp
                           <tr class="card-header card-header-success">
                             <td class="text-center">
-                              <div class="form-check">
+                              {{-- <div class="form-check">
                                 <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" @if($tasknote->read=="done")checked @endif>
+                                  <input class="form-check-input" type="checkbox" onclick="location.href='/tasknote/{{$tasknote->uniqueid}}/edit';" value="" @if($tasknote->read=="done")checked @endif>
                                   <span class="form-check-sign">
                                     <span class="check"></span>
                                   </span>
                                 </label>
-                              </div>
+                              </div> --}}
                             </td>
                             <td class="text-left">{{$tasknote->user->name}} has not done <u><b>{{$tasknote->subject}}</b></u> homework.
                             </td>
                             @if(Auth::user()->user_type == "faculty")
                               <td class="td-actions justify-content-center">
-                                <button type="button" rel="tooltip" title="Send Reminder" class="btn btn-warning btn-link btn-sm" data-toggle="modal" data-target="#newedit">
+                                <button type="button" rel="tooltip" title="Send Reminder" class="btn btn-warning btn-link btn-sm" data-toggle="modal" data-target="#newedit" data-uniqueid="{{$tasknote->uniqueid}}" data-description="{{$tasknote->description}}" data-batch="{{$tasknote->batch}}" data-department="{{$tasknote->department}}" data-subject="{{$tasknote->subject}}" data-read="{{$tasknote->read}}" data-type="{{$tasknote->type}}" data-description="{{$tasknote->description}}" >
                                   <i class="material-icons">autorenew</i>
                                 </button>
                                 {{-- <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-type="{{$tasknote->type}}" data-nid="{{$tasknote->uniqueid}}" data-target="#ndelete" class="btn btn-danger btn-link btn-sm">
@@ -539,21 +539,126 @@
   </div>
   <div class="modal fade" id="newedit" tabindex="-1" role="dialog" aria-labelledby="neweditLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="neweditLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <form method="POST" class="form" action="#" id="noteeditform" >
+        <div class="card modal-content">
+          <div class="card-header card-header-info">
+            <h4 class="card-title" id="newLabel">
+              Edit 
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </h4>
+            
+          </div>
+          <div class="card-body">
+                  @csrf
+                  {{method_field('put')}}
+                  {{-- <input type="hidden" name="uniqueid" id="uniqueid" value=""> --}}
+                  @if(Auth::user()->user_type == "faculty")
+                    <div id="deptve" class="row  bmd-form-group{{ $errors->has('department') ? ' has-danger' : '' }} mt-3">
+                      <div class="input-group">
+                        <div class="input-group-prepend col-sm-3 col-form-label">
+                          <span class="input-group-text ">
+                            <i class="material-icons">account_balance</i>
+                          </span>
+                        </div>
+                          <input class="btn dropdown-toggle col-md-6" type="text" readonly name="department" id="departmente" value="{{ __('Department...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                          <div class="dropdown-menu" aria-labelledby="department">
+                            <a class="dropdown-item" onclick="document.getElementById('departmente').setAttribute('value','Computer Science');" >Computer Science</a>
+                            <a class="dropdown-item" onclick="document.getElementById('departmente').setAttribute('value','Information Technology');" >Information Technology</a>
+                          </div>
+                        
+                      </div>
+                      @if ($errors->has('department'))
+                        <div id="department-error" class="error text-danger pl-3" for="department" style="display: block;">
+                        <strong>{{ $errors->first('department') }}</strong>
+                        </div>
+                      @endif
+                    </div>
+                    <div id="batchve" class="row bmd-form-group{{ $errors->has('batch') ? ' has-danger' : '' }} mt-3">
+                      <div class="input-group">
+                        <div class="input-group-prepend col-sm-3 col-form-label">
+                          <span class="input-group-text">
+                            <i class="material-icons">class</i>
+                          </span>
+                        </div>
+                          <input class="btn dropdown-toggle col-md-6" type="text" readonly name="batch" id="batche" value="{{ __('Batch...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                          <div class="dropdown-menu" aria-labelledby="batch">
+                            <a class="dropdown-item" onclick="document.getElementById('batche').setAttribute('value','First Year');" >First Year</a>
+                            <a class="dropdown-item" onclick="document.getElementById('batche').setAttribute('value','Second Year');" >Second Year</a>
+                            <a class="dropdown-item" onclick="document.getElementById('batche').setAttribute('value','Third Year');">Third Year</a>
+                          </div>
+                      </div>
+                      
+                      @if ($errors->has('batch'))
+                        <div id="batch-error" class="error text-danger pl-3" for="batch" style="display: block;">
+                        <strong>{{ $errors->first('batch') }}</strong>
+                        </div>
+                      @endif
+                    </div>
+                  @endif
+                  <div class="row bmd-form-group{{ $errors->has('subject') ? ' has-danger' : '' }} mt-3">
+                    <div class="input-group">
+                      <div class="input-group-prepend col-sm-3 col-form-label">
+                        <span class="input-group-text">
+                          <i class="material-icons">subject</i>
+                        </span>
+                      </div>
+                      <input class="btn col-md-6 from"  type="text" style=" text-transform: none;" name="subject" id="subjecte" placeholder="{{ __('Subject...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                    </div>
+                    @if ($errors->has('subject'))
+                      <div id="subject-error" class="error text-danger pl-3 "  style="display: block;">
+                        <strong>{{ $errors->first('subject') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="row bmd-form-group{{ $errors->has('description') ? ' has-danger' : '' }} mt-3">
+                    <div class="input-group">
+                      <div class="input-group-prepend col-sm-3 col-form-label">
+                        <span class="input-group-text">
+                          <i class="material-icons">description</i>
+                        </span>
+                      </div>
+                        <textarea class="btn text-left col-md-6" cols="100" style=" text-transform: none;" rows="10" type="textarea"  name="description" id="descriptione" placeholder="{{ __('Description...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  ></textarea>
+                    </div>
+                    
+                    @if ($errors->has('description'))
+                      <div id="description-error" class="error text-danger pl-3 "  style="display: block;">
+                      <strong>{{ $errors->first('description') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="row bmd-form-group{{ $errors->has('type') ? ' has-danger' : '' }} mt-3">
+                    <div class="input-group">
+                      <div class="input-group-prepend col-sm-3 col-form-label">
+                        <span class="input-group-text">
+                          <i class="material-icons">remove_red_eye</i>
+                        </span>
+                      </div>
+                        <input class="btn dropdown-toggle col-md-6" type="button" readonly name="typeshow" id="typeshowe" value="{{ __('Type...') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required  >
+                        <div class="dropdown-menu" aria-labelledby="type">
+                          @if(Auth::user()->user_type == "faculty")
+                            <a class="dropdown-item" onclick="document.getElementById('typee').setAttribute('value','HomeWork');document.getElementById('typeshowe').setAttribute('value','HomeWork');document.getElementById('departmente').disabled=false;document.getElementById('deptve').setAttribute('style','display:block;');document.getElementById('batche').disabled=false;document.getElementById('batchve').setAttribute('style','display:block;');" >HomeWork</a>
+                            <a class="dropdown-item" onclick="document.getElementById('typee').setAttribute('value','Notice');document.getElementById('typeshowe').setAttribute('value','Notice');document.getElementById('departmente').disabled=false;document.getElementById('deptve').setAttribute('style','display:block;');document.getElementById('batche').disabled=false;document.getElementById('batchve').setAttribute('style','display:block;');" >Notice</a>
+                          @endif
+                          <a class="dropdown-item" onclick="document.getElementById('typee').setAttribute('value','Task');document.getElementById('typeshowe').setAttribute('value','Task');document.getElementById('departmente').setAttribute('disabled','true');document.getElementById('deptve').setAttribute('style','display:none;');document.getElementById('batche').setAttribute('disabled','true');document.getElementById('batchve').setAttribute('style','display:none;');" >Task</a>
+                        </div>
+                        <input type="text" name="type" id="typee" hidden>
+                    </div>
+                    
+                    @if ($errors->has('type'))
+                      <div id="type-error" class="error text-danger pl-3" for="type" style="display: block;">
+                      <strong>{{ $errors->first('type') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+          </div>
+          
+          <div class="modal-footer justify-content-center">
+            <button type="submit" class="btn btn-warning">Save changes</button>
+          </div>
         </div>
-        <div class="modal-body">
-          NEdit
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
   <div class="modal fade" id="ndelete" tabindex="-1" role="dialog" aria-labelledby="ndeleteLabel" aria-hidden="true">
