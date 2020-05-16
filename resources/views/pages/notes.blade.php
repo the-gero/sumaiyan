@@ -32,7 +32,6 @@
         <h1 class="card-title">Notes</h1>
         <p class="card-category">Get your notes here or post your own notes.</p>
       </div>
-      <br>
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
@@ -40,43 +39,51 @@
               <div class="card-header card-header-info">
                 <h2 class="card-title">Teachers Notes</h2>
               </div>
+              <br>
+              <div class="card-header card-header-info row">
+                <p class="card-title text-center col-sm-3 ">Subject</p>
+                <p class="card-title text-center col-sm-3">Description</p>
+                <p class="card-title text-center col-sm-6">Action </p>
+              </div>
               <div class="card-body">
                 @if( Auth::user()->user_type == 'faculty' && count($tnotes)>0)
                   @foreach($tnotes as $tnote)
-                  <div @if(Auth::user()->id == $tnote->user_id) class="alert alert-warning" @else class="alert alert-success" @endif>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        Subject :{{$tnote->subject}}
+                  @if($tnote->type == "Public")
+                    <div @if(Auth::user()->id == $tnote->user_id) class="alert alert-warning" @else class="alert alert-success" @endif>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          {{$tnote->subject}}
+                        </div>
+                        <div class="col-sm-6">
+                          {{$tnote->description}}
+                        </div>
+                        <div class="col-sm-2 text-right">
+                          <a href="/storage/notes/{{$tnote->user_id}}/{{$tnote->file}}" target="_blank"><button class="btn bg-light"> <i class="material-icons text-success">open_in_new</i></button></a> 
+                        </div>
                       </div>
-                      <div class="col-sm-4">
-                        Description :{{$tnote->description}}
-                      </div>
-                      <div class="col-sm-2">
-                         <a href="/storage/notes/{{$tnote->user_id}}/{{$tnote->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
-                      </div>
+                      <span class="text-right"><small class="float-right bg-light text-secondary btn-sm " style="font-size: 10px;">&nbsp; by {{$tnote->user->name}} from @if($tnote->user->batch == "") {{$tnote->user->department}} @else {{$tnote->user->batch}}  @endif &nbsp;</small></span> 
                     </div>
-                    <span><small class="float-right">by {{$tnote->user->name}} from @if($tnote->user->batch == "") {{$tnote->user->department}} @else {{$tnote->user->batch}}  @endif</small></span> 
-                  </div>
+                  @endif
                   @endforeach
                 @endif
                 @if( count($notes)>0)
                   @foreach($notes as $note)
-                    @if($note->user_id != Auth::id())
+                    @if($note->user_id != Auth::id() && $note->type == "Public")
                       <div @if(Auth::user()->id == $note->user_id) class="alert alert-primary" @else class="alert alert-success" @endif>
                         <div class="row">
                           <div class="col-sm-3">
-                            Subject :{{$note->subject}}
+                            {{$note->subject}}
                           </div>
-                          <div class="col-sm-4">
-                            Description :{{$note->description}}
+                          <div class="col-sm-6">
+                            {{$note->description}}
                           </div>
-                          <div class="col-sm-2">
-                            <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
+                          <div class="col-sm-2 text-right">
+                            <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn bg-light"> <i class="material-icons text-success">open_in_new</i></button></a> 
                           </div>
                           
                         </div>
                         <span class="justify-content-end  ">
-                          <small class="float-right">by {{$note->user->name}}  @if($note->user->batch == "") from {{$note->user->department}} @else {{$note->user->batch}}  @endif </small></span> 
+                          <small class="float-right bg-light text-secondary btn-sm " style="font-size: 10px;">&nbsp; by {{$note->user->name}}  @if($note->user->batch == "") from {{$note->user->department}} @else {{$note->user->batch}}  @endif  &nbsp;</small></span> 
                       </div>
                     @endif
                   @endforeach
@@ -90,20 +97,33 @@
                 <h2 class="card-title col">My Notes </h2>
                 <button class="btn btn-danger col" data-toggle="modal" data-target="#addnote">  Add new </button>
               </div>
+              <br>
+              <div class="card-header card-header-info row">
+                <p class="card-title text-center col-sm-3 ">Subject</p>
+                <p class="card-title text-center col-sm-3">Description</p>
+                <p class="card-title text-center col-sm-6">Action </p>
+              </div>
               <div class="card-body" style="overflow: auto; ">
                 @if( count($notes)>0)
                   @foreach($notes as $note)
                     @if($note->user_id == Auth::id())
                       <div @if(Auth::user()->id == $note->user_id) class="alert alert-primary" @else class="alert alert-success" @endif>
-                        <div class="row">
+                        <div class="row text-center">
                           <div class="col-sm-3">
-                            Subject :{{$note->subject}}
+                            {{$note->subject}}
                           </div>
                           <div class="col-sm-4">
-                            Description :{{$note->description}}
+                            {{$note->description}}
                           </div>
                           <div class="col-sm-2">
-                            <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn "> Get notes</button></a> 
+                            <a href="/storage/notes/{{$note->user_id}}/{{$note->file}}" target="_blank"><button class="btn bg-light" rel="tooltip" title="View"><i class="material-icons text-success">open_in_new</i></button></a> 
+                          </div>  <br>
+                          <div class="col-sm-2 text-right">
+                            <a href="#">
+                              <button type="button" rel="tooltip" title="Remove"  data-toggle="modal" data-noteid="{{$note->id}}" data-target="#deletenotes" class="btn bg-white">
+                                <i class="material-icons text-danger">close</i>
+                              </button> 
+                            </a>
                           </div>
                         </div>
                         
@@ -218,7 +238,7 @@
                         <i class="material-icons">description</i>
                       </span>
                     </div>
-                      <input class="btn col-md-6 from"  type="textarea"  name="description" id="description" placeholder="{{ __('Description...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                      <input class="btn col-md-6 from"  type="textarea" style="text-transform: none"  name="description" id="description" placeholder="{{ __('Description...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
                   </div>
                   
                   @if ($errors->has('description'))
@@ -234,7 +254,7 @@
                         <i class="material-icons">subject</i>
                       </span>
                     </div>
-                      <input class="btn col-md-6 from"  type="text"  name="subject" id="subject" placeholder="{{ __('subject...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
+                      <input class="btn col-md-6 from"  type="text" style="text-transform: none"  name="subject" id="subject" placeholder="{{ __('subject...') }}"   {{-- data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" --}} required  >
                   </div>
                   
                   @if ($errors->has('subject'))
@@ -285,6 +305,30 @@
               </form>
             </div>
           
+    </div>
+  </div>
+</div>
+<div class="modal modal-danger fade" id="deletenotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="myModalLabel">Delete Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form action="#" id="delnoteform" method="post">
+          {{method_field('delete')}}
+          @csrf
+        <div class="modal-body">
+        <p class="text-center">
+          Are you sure you want to delete these notes?
+        </p>
+            <input type="hidden" name="noteid" id="noteid"  value="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">No, Cancel</button>
+          <button type="submit" class="btn btn-warning">Yes, Delete</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

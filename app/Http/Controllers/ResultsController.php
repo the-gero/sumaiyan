@@ -64,7 +64,7 @@ class ResultsController extends Controller
         $result->type = $request->type;
         $result->file = $fileNameToStore;
         $result->save();
-        return back()->withStatus(__('Result Published.'));
+        return redirect(route('results.index'))->withStatus(__('Result Published.'));
     }
 
     /**

@@ -221,6 +221,13 @@
               modal.find('.modal-body #nid').val(nid);
               modal.find('.modal-body #type').val(type);
             })
+            $('#deletenotes').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) 
+              var nid = button.data('noteid') 
+              var modal = $(this)
+              $('#delnoteform').attr("action","/notes/"+nid);
+              modal.find('.modal-body #noteid').val(nid);
+            })
         </script>
         @stack('js')
     </body>

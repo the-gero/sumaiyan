@@ -18,18 +18,38 @@ class NotesController extends Controller
         $this->middleware(['auth','verified']);
     }
     
+    function formatSize($bytes)
+    {
+        $kb = 1024;
+        $mb = $kb * 1024;
+        $gb = $mb * 1024;
+        $tb = $gb * 1024;
+        if (($bytes >= 0) && ($bytes < $kb)) {
+            return $bytes . ' B';
+        } elseif (($bytes >= $kb) && ($bytes < $mb)) {
+            return ceil($bytes / $kb) . ' KB';
+        } elseif (($bytes >= $mb) && ($bytes < $gb)) {
+            return ceil($bytes / $mb) . ' MB';
+        } elseif (($bytes >= $gb) && ($bytes < $tb)) {
+            return ceil($bytes / $gb) . ' GB';
+        } elseif ($bytes >= $tb) {
+            return ceil($bytes / $tb) . ' TB';
+        } else {
+            return $bytes . ' B';
+        }
+    }
+
     public function index()
     {
         if (Auth::user()->user_type == 'faculty') 
         {
             $tnotes = Notes::where('department',Auth::user()->department)->where('user_id',Auth::id())->get();
-            $notes = Notes::where('department',Auth::user()->department)->where('type','Public')->get();
+            $notes = Notes::where('department',Auth::user()->department)->get();
             return view('pages.notes')->with('tnotes',$tnotes)->with('notes',$notes);
         }
-        $notes = Notes::where('department',Auth::user()->department)->where('batch',Auth::user()->batch)->where('type','Public')->get();
-        $pnotes = Notes::where('department',Auth::user()->department)->where('batch',Auth::user()->batch)->where('type','Private')->get();
-        return view('pages.notes')->with('notes',$notes)->with('pnotes',$pnotes);
-        return $tnotes.''.$notes.$pnotes;
+        $notes = Notes::where('department',Auth::user()->department)->get();
+        return view('pages.notes')->with('notes',$notes);
+        //return $tnotes.''.$notes.$pnotes;
     }
 
     /**
@@ -61,14 +81,24 @@ class NotesController extends Controller
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('file')->storeAs('public/notes/'.Auth::id(), $fileNameToStore);
-            $size = Storage::size('/public'.'/notes'.'/'.Auth::id().'/'.$fileNameToStore);
+            $sizestr = Storage::size('/public'.'/notes'.'/'.Auth::id().'/'.$fileNameToStore);
+            $size =$this->formatSize($sizestr);
         } else {
             $fileNameToStore = 'nonote.txt';
         }
         $note = new Notes;
         $note->user_id = Auth::id();
+        /* if (Auth::user()->user_type == "student") 
+        {
+            $note->department = Auth::user()->department;
+            $note->batch = Auth::user()->batch;
+        }
+        else
+        {
+            
+        } */
         $note->department = $request->department;
-        $note->batch = $request->batch;
+            $note->batch = $request->batch;
         $note->sem = $request->sem;
         $note->subject = $request->subject;
         $note->description = $request->description;
@@ -76,7 +106,7 @@ class NotesController extends Controller
         $note->file = $fileNameToStore;
         $note->size = $size;
         $note->save();
-        return back()->withStatus(__('Notes Published.'));
+        return redirect(route('notes.index'))->withStatus(__('Notes Published.'));
     }
 
     /**
@@ -119,8 +149,15 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $note = Notes::find($id);
+        if($note->user_id == Auth::id())
+        {
+            $note->delete();
+            Storage::delete('/public'.'/notes'.'/'.Auth::id().'/'.$note->file);
+            return redirect(route('notes.index'))->withStatus(__('Notes Deleted.'));
+        }
+
     }
 }
