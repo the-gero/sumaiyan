@@ -11,7 +11,7 @@
     <span class="navbar-toggler-icon icon-bar"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end">
-      <form class=" navbar-form">
+      {{-- <form class=" navbar-form">
         <div class="input-group no-border">
         <input type="text" value="" class="form-control justify-content-center" placeholder="Search...">
         <button type="submit" class="btn btn-white btn-just-icon">
@@ -19,7 +19,7 @@
           <div class="ripple-container"></div>
         </button>
         </div>
-      </form>
+      </form> --}}
       <ul class="navbar-nav">
         <li class="nav-item card">
           <a class="nav-link" href="{{ route('home') }}">
@@ -29,6 +29,7 @@
             </p>
           </a>
         </li>
+        <li class="nav-item"> &nbsp;</li>
         <li class="nav-item dropdown card"  >
           <a class="nav-link " href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="material-icons">notifications</i>
@@ -69,14 +70,23 @@
             
           </div>
         </li>
-        
-        <li class="nav-item dropdown card ">
-          <a class="nav-link " href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="material-icons ">person</i>
-            <p class="d-lg-none d-md-block ">
-              {{ __('Account') }}
-            </p>
-          </a>
+        <li class="nav-item"> &nbsp;</li>
+        <li class="nav-item dropdown ">
+          @if(Auth::user()->dp == "noimage.jpg")
+            <a class="nav-link card " href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons ">person</i> 
+              <p class="d-lg-none d-md-block ">
+                {{ __('Account') }}
+              </p>
+            </a>
+          @else 
+            <a class="nav-link text-center" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="/storage/dps/{{Auth::user()->dp}}" width="40" height="40" class="rounded-circle "> 
+              <p class="d-lg-none d-md-block ">
+                {{ __('Account') }}
+              </p>
+            </a>
+          @endif
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
             <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
             <a class="dropdown-item" href="#">{{ __('Settings') }}</a>

@@ -11,17 +11,17 @@
       @php  
       
       @endphp
-      @if($tasknote->type == "HomeWork")
+      @if($tasknote->type == "HomeWork" && $tasknote->read == "undone")
         @php
           $counthw++;
         @endphp
       @endif
-      @if($tasknote->type == "Task")
+      @if($tasknote->type == "Task" && $tasknote->read == "undone")
         @php
           $counttask++;
         @endphp
       @endif
-      @if($tasknote->type == "Notice")
+      @if($tasknote->type == "Notice" && $tasknote->read == "undone")
         @php
           $countnotif++;
         @endphp
@@ -69,7 +69,7 @@
             <div class="card-footer">
               <div class="stats">
                 <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Get More Space...</a>
+                <a href="#getsize" data-target="#getsize" data-toggle="modal">Get details</a>
               </div>
             </div>
           </div>
@@ -177,17 +177,19 @@
                             @php
                               $flag1 = 1;$counthw++;
                             @endphp
-                            <tr class="card-header card-header-info">
-                              <td class="text-center">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox"  onclick="location.href='/tasknote/{{$tasknote->uniqueid}}/edit';" value="" @if($tasknote->read=="done")checked @endif>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
+                            <tr class="card-header card-header-info justify-content-center">
+                              @if(Auth::user()->user_type == "student")
+                                <td class="text-center">
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox"  onclick="location.href='/tasknote/{{$tasknote->uniqueid}}/edit';" value="" @if($tasknote->read=="done")checked @endif>
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                    </label>
+                                  </div>
+                                </td>
+                              @endif
                               <td class="text-center">
                                 {{$tasknote->subject}}
                               </td>
@@ -290,7 +292,7 @@
                             @php
                               $flag3 = 1 ;
                             @endphp
-                            <tr class="card-header card-header-warning">
+                            <tr class="card-header card-header-success">
                               <td class="text-center">
                                 <div class="form-check">
                                   <label class="form-check-label">
@@ -347,7 +349,7 @@
                       
                       @foreach ($undonehws as $tasknote)
                         
-                        @if($tasknote->type == "HomeWork")
+                        @if($tasknote->type == "HomeWork" && $tasknote->user->user_type == "student")
                           @php
                             $flag4 = 1 ;
                           @endphp
@@ -392,6 +394,37 @@
             </div>
           </div>
         @endif
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="getsize" tabindex="-1" role="dialog" aria-labelledby="getsizeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="getsizeLabel">Size Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            
+            <thead class="table-title table-success text-center">
+              <th>Note Subject</th>
+              <th>File Name</th>
+              <th>Size</th>
+            </thead>
+            <tbody>
+              @foreach(auth()->user()->notes as $note)
+                <tr class="text-center">
+                  <td> {{$note->subject}} </td>
+                  <td> {{$note->file}} </td>
+                  <td> {{$note->size}} </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

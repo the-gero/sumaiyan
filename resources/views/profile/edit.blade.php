@@ -3,6 +3,48 @@
 @section('content')
   <div class="content">
     <div class="container-fluid">
+      @if (session('status'))
+        <div class="row">
+          <div class="col-sm-12 ">
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="material-icons">close</i>
+              </button>
+              <span>{{ session('status') }}</span>
+            </div>
+          </div>
+        </div>
+      @endif
+      <div class="row">
+        <div class="col-md-12">
+          <form method="post" action="{{ route('dp.update') }}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
+            @csrf
+            @method('put')
+
+            <div class="card  ">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">{{ __('Profile Photo') }}</h4>
+                <p class="card-category">{{ __('Update your Profile picture') }}</p>
+              </div>
+              <div class="card-body  ">
+                
+                <div class="row justify-content-center" class="width:40px; ">
+                  <img src="/storage/dps/{{Auth::user()->dp}}" class="card-body col-md-4" style="height:400px; width:500px" alt="DP" id="imgpreview">
+                </div>
+                
+                <div class="row justify-content-center">
+                  <label class="col-sm-2 ">{{ __('Select File') }}</label>
+                    <input type="file" name="dp" id="dp">
+                </div>
+              </div>
+              
+              <div class="card-footer ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <form method="post" action="{{ route('profile.update') }}" autocomplete="off" class="form-horizontal">
@@ -15,18 +57,6 @@
                 <p class="card-category">{{ __('User information') }}</p>
               </div>
               <div class="card-body ">
-                @if (session('status'))
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <i class="material-icons">close</i>
-                        </button>
-                        <span>{{ session('status') }}</span>
-                      </div>
-                    </div>
-                  </div>
-                @endif
                 <div class="row">
                   <label class="col-sm-2 col-form-label">{{ __('Name') }}</label>
                   <div class="col-sm-7">

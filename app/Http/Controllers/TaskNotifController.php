@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\TasknNote;
+use App\Notes;
+use File;
 
 class TaskNotifController extends Controller
 {
@@ -59,9 +61,13 @@ class TaskNotifController extends Controller
     public function index()
     {
         $tasknotes = TasknNote::where('user_id', Auth::id())->orderBy("updated_at", "asc")->get();
-        $size = $this->folderSize('storage/notes/'.Auth::id());
-        $sizewithformat = $this->formatSize($size);
-        
+        if(File::exists('storage/notes/'.Auth::id())) {
+            $size = $this->folderSize('storage/notes/'.Auth::id());
+            $sizewithformat = $this->formatSize($size);
+        }
+        else {
+            $sizewithformat = $this->formatSize("0");
+        }
         if (Auth::user()->user_type == "faculty") {
             $undonehws = TasknNote::where('read', "undone")->where('type', "homework")->where("department", Auth::user()->department)->orderBy("updated_at", "asc")->get();
             return view('dashboard')->with('tasknotes', $tasknotes)->with('undonehws', $undonehws)->with('size',$sizewithformat);
@@ -169,7 +175,7 @@ class TaskNotifController extends Controller
     public function edit($id)
     {
         //For mark as done
-        $tasknote = TasknNote::where("uniqueid",$id)->first();
+        $tasknote = TasknNote::where("uniqueid",$id)->where("user_id",Auth::id())->first();
         if($tasknote->user_id == Auth::id())
         {
             if($tasknote->read == "undone")
