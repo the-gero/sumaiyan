@@ -19,8 +19,8 @@
                 <small class="card-category">Here is a view
                 </small>
               </div>
-              <div class="card-body">
-
+              <div class="card-body" style="overflow-x: auto">
+                <img src="https://alumni.somaiya.edu/media/559/uploads/Somaiya_Vidyavihar_Future_Plans(1).jpg" alt="">
               </div>
             </div>
             
